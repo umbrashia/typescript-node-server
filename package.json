@@ -1,0 +1,25 @@
+{
+  "name": "mongosetup",
+  "version": "1.0.0",
+  "description": "full flow of node",
+  "main": "mongoInit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umbrashia/mongo-init.git"
+  },
+  "keywords": [
+    "mvc",
+    "node",
+    "wth",
+    "monggo"
+  ],
+  "author": "shantanu sharma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/umbrashia/mongo-init/issues"
+  },
+  "homepage": "https://github.com/umbrashia/mongo-init#readme"
+}
