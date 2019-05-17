@@ -1,4 +1,5 @@
-import {IBaseController,IHomeController} from './interfaces/controllers';
+import {IBaseController,IHomeController} from './Application/interfaces/controllers';
+import HomeController from './Application/controllers/HomeController';
 
 class MainInit  implements IHomeController,IBaseController {
     
@@ -21,5 +22,6 @@ class MainInit  implements IHomeController,IBaseController {
 }
 
 (async()=>{
-    let thsnks = new MainInit().internalRouting(1,2);
+    new HomeController();
+    let thsnks = new MainInit().internalRouting(1,5);
 });

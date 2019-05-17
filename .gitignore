@@ -1,4 +1,2 @@
-/controllers
-/interfaces
-/node_modules
+/Application
 mainInit.js
