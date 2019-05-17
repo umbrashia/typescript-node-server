@@ -1,8 +1,14 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
+import { HttpSystem } from "../helpers";
 
-export default class HomeController implements IHomeController,IBaseController{
+export default class HomeController extends HttpSystem implements IHomeController,IBaseController{
 
-    internalRouting(route: any, subRoute: any): Promise<void> {
+    constructor(httpSystem:HttpSystem){
+        super(httpSystem);
+        this.internalRouting();
+    }
+
+    internalRouting():void {
         let a={name:"sdsd",age:12,class:"all"};
         let b={...a,class:"Fully"};
         throw new Error("Method not implemented.");

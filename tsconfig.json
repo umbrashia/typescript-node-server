@@ -2,7 +2,7 @@
 	"compileOnSave": true,
     	"compilerOptions": {
         "module": "commonjs",
-        "target": "es2015",
+        "target": "es2017",
         "noImplicitAny": true,
         "sourceMap": false,
         "outDir":""
