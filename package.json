@@ -22,7 +22,5 @@
     "url": "https://github.com/umbrashia/mongo-init/issues"
   },
   "homepage": "https://github.com/umbrashia/mongo-init#readme",
-  "dependencies": {
-    "react": "^16.8.6"
-  }
+  "dependencies": {}
 }
