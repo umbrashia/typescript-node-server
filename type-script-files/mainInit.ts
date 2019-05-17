@@ -23,5 +23,5 @@ class MainInit  implements IHomeController,IBaseController {
 
 (async()=>{
     new HomeController();
-    let thsnks = new MainInit().internalRouting(1,5);
+    let thsnks = new MainInit().internalRouting(3,5);
 });
