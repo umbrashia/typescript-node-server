@@ -6,6 +6,8 @@ import { HomeController } from "./Application/controllers";
 
 process.env.SECURE_KEY = "umbrashia_corporation";
 
+
+
 let app = express();
 let secureApp = express.Router();
 
@@ -37,23 +39,34 @@ app.get('/', (req, res) => res.send('hiii'));
 //testing purpose
 app.get("/homeapi", (Request, Response) => { Response.json({ mess: "success", status: "200" }); });
 
-app.all("/api/:module/:subModule?/:subSubModule?", (request:express.Request, response:express.Response) => {
+app.all("/api/:module/:subModule?/:subSubModule?", (request: express.Request, response: express.Response) => {
     response.setHeader('Content-Type', 'text/plain');
-    let httpSystem=new HttpSystem();
-    httpSystem.sysHttpRequest=request;
-    httpSystem.sysHttpResponse=response;
+    let httpSystem = new HttpSystem();
+    httpSystem.sysHttpRequest = request;
+    httpSystem.sysHttpResponse = response;
     //HttpSystem.Jsonwebtoken=jsonwebtoken;
     switch (request.params.module) {
         case "Home":
-                new HomeController(httpSystem);
+            new HomeController(httpSystem);
             break;
     }
 });
 
+app.listen(4000, async () => {
+    console.log("Server is started....... at 4000 ......"+new Date());
+    try {
 
-(async () => {
-    let a = { name: "ssss", jk: "ssss" };
-    let b = { ...a, jk: "shantanu" }
-    console.log("start");
+        let a: number, b: number = 1010;
+        let c: number = a + b;
+        c *= c;
+        // let connection:Mongoose=await appMongo.connect("mongodb://localhost:27017/stickflash",{ useNewUrlParser: true });
+
+
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
 
 });
