@@ -1,2 +1,4 @@
 import IHttpSystem from './IHttpSystem';
-export {IHttpSystem};
+import IAppDatabase from './IAppDatabase';
+
+export {IHttpSystem,IAppDatabase};

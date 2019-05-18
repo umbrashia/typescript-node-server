@@ -3,13 +3,16 @@ import * as bodyparser from "body-parser";
 import * as jsonwebtoken from "jsonwebtoken";
 import { HttpSystem } from "./Application/helpers";
 import { HomeController } from "./Application/controllers";
+import { MongoClient, Db } from "mongodb";
 
 process.env.SECURE_KEY = "umbrashia_corporation";
 
 
 
+
 let app = express();
 let secureApp = express.Router();
+var globalDb: Db = null;
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json({ type: 'text/plain' }))
@@ -44,6 +47,7 @@ app.all("/api/:module/:subModule?/:subSubModule?", (request: express.Request, re
     let httpSystem = new HttpSystem();
     httpSystem.sysHttpRequest = request;
     httpSystem.sysHttpResponse = response;
+    httpSystem.sysDatabaseDb = globalDb;
     //HttpSystem.Jsonwebtoken=jsonwebtoken;
     switch (request.params.module) {
         case "Home":
@@ -53,16 +57,10 @@ app.all("/api/:module/:subModule?/:subSubModule?", (request: express.Request, re
 });
 
 app.listen(4000, async () => {
-    console.log("Server is started....... at 4000 ......"+new Date());
+    console.log("Server is started at 4000 Port ...... " + new Date());
     try {
-
-        let a: number, b: number = 1010;
-        let c: number = a + b;
-        c *= c;
-        // let connection:Mongoose=await appMongo.connect("mongodb://localhost:27017/stickflash",{ useNewUrlParser: true });
-
-
-
+        let connect = await new MongoClient("mongodb://localhost:27017/stickflash", { useNewUrlParser: true }).connect();
+        globalDb = connect.db("stickflash");
     } catch (error) {
 
         console.log(error);

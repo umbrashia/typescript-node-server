@@ -1,17 +1,28 @@
 import { IHttpSystem } from "../interfaces/helpers";
 import { Response, Request } from "express";
+import { Db } from "mongodb";
 
-export default class HttpSystem implements IHttpSystem{
-    
-    constructor(httpSystem?:HttpSystem){
-        if(httpSystem){
-            this._sysHttpRequest=httpSystem.sysHttpRequest;
-            this._sysHttpResponse=httpSystem.sysHttpResponse;
+export default class HttpSystem implements IHttpSystem {
+
+    constructor(httpSystem?: HttpSystem) {
+        if (httpSystem) {
+            this._sysHttpRequest = httpSystem.sysHttpRequest;
+            this._sysHttpResponse = httpSystem.sysHttpResponse;
+            this._sysDatabaseDb=httpSystem.sysDatabaseDb;
         }
 
     }
 
-    private _sysHttpRequest: Request; 
+    private _sysDatabaseDb: Db;
+
+    public get sysDatabaseDb(): Db {
+        return this._sysDatabaseDb;
+    }
+    public set sysDatabaseDb(value: Db) {
+        this._sysDatabaseDb = value;
+    }
+
+    private _sysHttpRequest: Request;
 
     public get sysHttpRequest(): Request {
         return this._sysHttpRequest;
@@ -29,6 +40,6 @@ export default class HttpSystem implements IHttpSystem{
         this._sysHttpResponse = value;
     }
 
-    
+
 
 }
