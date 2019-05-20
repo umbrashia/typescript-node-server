@@ -4,10 +4,21 @@ import * as jsonwebtoken from "jsonwebtoken";
 import { HttpSystem } from "./Application/helpers";
 import { HomeController } from "./Application/controllers";
 import { MongoClient, Db } from "mongodb";
+import * as joi from '@hapi/joi';
 
 process.env.SECURE_KEY = "umbrashia_corporation";
 
+const chkObj=joi.object().keys({
+    name: joi.string().required(),
+    address:joi.string()
+});
 
+let result = joi.validate({address:"hello",name:""},chkObj);
+if(!result.error)
+    console.log("Correct Data.....");
+else 
+    console.log("Error Information : "+result.error.message);
+    
 
 
 let app = express();
@@ -61,6 +72,11 @@ app.listen(4000, async () => {
     try {
         let connect = await new MongoClient("mongodb://localhost:27017/stickflash", { useNewUrlParser: true }).connect();
         globalDb = connect.db("stickflash");
+        await ["armyman"].forEach(async element => {
+            if (! await globalDb.listCollections({ name: element }).next())
+                await globalDb.createCollection(element);
+        });
+
     } catch (error) {
 
         console.log(error);

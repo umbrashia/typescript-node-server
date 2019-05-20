@@ -3,6 +3,6 @@
         "**/package-lock.json": true,
         "admin/": true,
         "node_modules": true,
-        "*.js.map":true
+        "**/*js.map":true
     }
 }
