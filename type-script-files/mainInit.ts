@@ -13,11 +13,11 @@ const chkObj=joi.object().keys({
     address:joi.string()
 });
 
-let result = joi.validate({address:"hello",name:""},chkObj);
+let result = joi.validate({address:"hello",name:"",rooms:500,kitchen:600},chkObj);
 if(!result.error)
     console.log("Correct Data.....");
 else 
-    console.log("Error Information : "+result.error.message);
+    console.log(JSON.stringify(result.error));
     
 
 
