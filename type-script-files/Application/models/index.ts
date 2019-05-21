@@ -1,4 +1,4 @@
-import { Armyman, bodyArmyman } from "./Armyman";
+import { Armyman } from "./Armyman";
 
 
-export {Armyman,bodyArmyman};
+export {Armyman};

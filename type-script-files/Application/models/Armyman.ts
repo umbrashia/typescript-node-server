@@ -1,28 +1,42 @@
 import { HttpSystem, AppDatabase } from "../helpers";
+import { joi } from "../interfaces/helpers";
 
 
-var Address= {
-    city:"",
-    street:"",
-};
-var bodyArmyman={
-    name: "",
-    year: 0,
-    major: "",
-    gpa: 0,
-    address:"",
-};
-// export { IArmyman };
+interface RootObject {
+    _id: any;
+    name: any;
+    phone: any;
+    city: any;
+    status: any;
+    favproducts: FavproductsItem[];
+}
+interface FavproductsItem {
+    _id: any;
+    name: any;
+    price: any;
+}
 
-
-
-class Armyman extends AppDatabase {
+class Armyman extends AppDatabase<RootObject> {
 
     constructor(httpSystem: HttpSystem) {
         super("armyman", httpSystem);
-        //this.collectionName = "armyman";  
-        //const sss:IArmyman={...I};
+        const FacSchema: FavproductsItem = {
+            _id: joi.string(),
+            name: joi.string(),
+            price: joi.number().min(0)
+        };
+        this.setSkeleton({
+            _id: joi.string(),
+            name: joi.string(),
+            phone: joi.string(),
+            city: joi.string(),
+            status: joi.string(),
+            favproducts: joi.array().items(FacSchema) as any
+        });
     }
+
+
+
 }
 
-export { bodyArmyman, Armyman }
+export { Armyman }

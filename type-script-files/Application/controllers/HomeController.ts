@@ -1,6 +1,6 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
 import { HttpSystem } from "../helpers";
-import { Armyman, bodyArmyman } from "../models";
+import { Armyman } from "../models";
 import { response } from "express";
 
 export default class HomeController extends HttpSystem implements IHomeController, IBaseController {
@@ -11,7 +11,7 @@ export default class HomeController extends HttpSystem implements IHomeControlle
         super(httpSystem);
         this.armyman = new Armyman(httpSystem);
         this.internalRouting();
-        
+
     }
 
     internalRouting(): void {
@@ -28,8 +28,8 @@ export default class HomeController extends HttpSystem implements IHomeControlle
 
     async getArmyMans() {
         try {
-            
-           
+
+
             await this.armyman.doInsert({});
             let data = await this.sysDatabaseDb.collection("armyman").find().toArray();
             this.sysHttpResponse.send(JSON.stringify(data));
