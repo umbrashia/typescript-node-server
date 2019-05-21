@@ -30,7 +30,11 @@ export default class HomeController extends HttpSystem implements IHomeControlle
         try {
 
 
-            await this.armyman.doInsert({});
+            await this.armyman.doInsert({
+                name:"shantanu sharma",
+                phone: "7503633251",
+                status:""
+            });
             let data = await this.sysDatabaseDb.collection("armyman").find().toArray();
             this.sysHttpResponse.send(JSON.stringify(data));
         } catch (error) {

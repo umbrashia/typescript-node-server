@@ -27,7 +27,7 @@ export default class AppDatabase<ISkeleton> extends HttpSystem implements IAppDa
         return this.sysDatabaseDb.collection(this.collectionName).aggregate(condictions).toArray();
     }
 
-    async doInsert(insertData: any): Promise<any> {
+    async doInsert(insertData: ISkeleton): Promise<any> {
         return this.sysDatabaseDb.collection(this.collectionName).insertOne(insertData);
     }
 

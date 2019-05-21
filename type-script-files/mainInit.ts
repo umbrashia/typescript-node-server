@@ -10,12 +10,13 @@ process.env.SECURE_KEY = "umbrashia_corporation";
 
 const chkObj=joi.object().keys({
     name: joi.string().required(),
-    address:joi.string()
+    address:joi.string(),
+    car:joi.string().default("honda")
 });
 
-let result = joi.validate({address:"hello",name:"",rooms:500,kitchen:600},chkObj);
+let result = joi.validate({address:"hello",name:"jhon",car:991231},chkObj);
 if(!result.error)
-    console.log("Correct Data.....");
+    console.log("Correct Data.....",result.value);
 else 
     console.log(JSON.stringify(result.error));
     
@@ -72,7 +73,7 @@ app.listen(4000, async () => {
     try {
         let connect = await new MongoClient("mongodb://localhost:27017/stickflash", { useNewUrlParser: true }).connect();
         globalDb = connect.db("stickflash");
-        await ["armyman"].forEach(async element => {
+        await ["armyman","admin"].forEach(async element => {
             if (! await globalDb.listCollections({ name: element }).next())
                 await globalDb.createCollection(element);
         });

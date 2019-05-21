@@ -1,4 +1,4 @@
 import { Armyman } from "./Armyman";
+import { Admin,IAdmin } from "./Admin";
 
-
-export {Armyman};
+export {Armyman,Admin,IAdmin};
