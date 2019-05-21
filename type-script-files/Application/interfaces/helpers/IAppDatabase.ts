@@ -4,5 +4,4 @@ export default interface IAppDatabase<ISkeleton> {
     databaseSchema: joi.ObjectSchema;
     getAggregate(condictions: any): Promise<any>;
     doInsert(insertData: any): Promise<any>;
-    //setSkeleton(schema:ISkeleton):void;
 }

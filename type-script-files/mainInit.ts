@@ -4,24 +4,11 @@ import * as jsonwebtoken from "jsonwebtoken";
 import { HttpSystem } from "./Application/helpers";
 import { HomeController } from "./Application/controllers";
 import { MongoClient, Db } from "mongodb";
-import * as joi from '@hapi/joi';
+import * as mongoose from 'mongoose';
+
 
 process.env.SECURE_KEY = "umbrashia_corporation";
-
-const chkObj=joi.object().keys({
-    name: joi.string().required(),
-    address:joi.string(),
-    car:joi.string().default("honda")
-});
-
-let result = joi.validate({address:"hello",name:"jhon",car:991231},chkObj);
-if(!result.error)
-    console.log("Correct Data.....",result.value);
-else 
-    console.log(JSON.stringify(result.error));
     
-
-
 let app = express();
 let secureApp = express.Router();
 var globalDb: Db = null;
