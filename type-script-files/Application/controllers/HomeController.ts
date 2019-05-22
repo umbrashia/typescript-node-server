@@ -1,20 +1,31 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
 import { HttpSystem, bcrypt, crypto, jsonwebtoken } from "../helpers";
-import { Products, IProduct, IAdmin, Admin } from "../models";
+import { IAdmin, Admin } from "../models";
 
 export default class HomeController extends HttpSystem implements IHomeController, IBaseController {
 
     constructor(httpSystem: HttpSystem) {
         super(httpSystem);
-        this.internalRouting();
+        //this.internalRouting();
+    }
+
+    secureInternalRouting(): void {
+        switch (this.sysHttpRequest.params.subModule) {
+            case "adminLogin":
+                this.adminLogin();
+                break;
+            case "adminNew":
+                this.adminNew();
+                break;
+            default:
+                this.sysHttpResponse.send("ohhh wrongg....");
+                break;
+        }
     }
 
     internalRouting(): void {
         //subModule
         switch (this.sysHttpRequest.params.subModule) {
-            case "getArmyMans":
-                this.getArmyMans();
-                break;
             case "adminLogin":
                 this.adminLogin();
                 break;
@@ -61,25 +72,6 @@ export default class HomeController extends HttpSystem implements IHomeControlle
         } catch (error) {
             this.sysErrorMessage = "error";
             this.doJsonResponse(error);
-        }
-    }
-
-    async getArmyMans() {
-        try {
-
-            const insert: IProduct.RootObject & any = {
-                productName: "Nokia one",
-                productPrice: 9999,
-                status: IProduct.status.show
-            };
-
-            await new Products(insert).save();
-            let data = await Products.find();
-
-            //let data = { nodata: "na" }
-            this.sysHttpResponse.send(JSON.stringify(data));
-        } catch (error) {
-
         }
     }
 

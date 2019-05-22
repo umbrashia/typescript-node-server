@@ -8,5 +8,5 @@ export default interface IHttpSystem{
     sysDatabaseDb:Db;
     sysSuccessMessage:String;
     sysErrorMessage:String;
-    sysJsonBodyObj:any;
+    // sysJsonBodyObj:any;
 }
