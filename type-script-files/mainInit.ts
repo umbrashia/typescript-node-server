@@ -1,11 +1,12 @@
 import * as express from "express";
 import * as bodyparser from "body-parser";
 import * as jsonwebtoken from "jsonwebtoken";
-import { HttpSystem } from "./Application/helpers";
+import { HttpSystem, mongoose } from "./Application/helpers";
 import { HomeController } from "./Application/controllers";
 import { MongoClient, Db } from "mongodb";
-import * as mongoose from 'mongoose';
 
+
+mongoose.connect('mongodb://localhost:27017/stickflash', {useNewUrlParser: true,useCreateIndex: true,});
 
 process.env.SECURE_KEY = "umbrashia_corporation";
     
@@ -46,7 +47,6 @@ app.all("/api/:module/:subModule?/:subSubModule?", (request: express.Request, re
     let httpSystem = new HttpSystem();
     httpSystem.sysHttpRequest = request;
     httpSystem.sysHttpResponse = response;
-    httpSystem.sysDatabaseDb = globalDb;
     //HttpSystem.Jsonwebtoken=jsonwebtoken;
     switch (request.params.module) {
         case "Home":
@@ -58,12 +58,8 @@ app.all("/api/:module/:subModule?/:subSubModule?", (request: express.Request, re
 app.listen(4000, async () => {
     console.log("Server is started at 4000 Port ...... " + new Date());
     try {
-        let connect = await new MongoClient("mongodb://localhost:27017/stickflash", { useNewUrlParser: true }).connect();
-        globalDb = connect.db("stickflash");
-        await ["armyman","admin"].forEach(async element => {
-            if (! await globalDb.listCollections({ name: element }).next())
-                await globalDb.createCollection(element);
-        });
+        
+        
 
     } catch (error) {
 
