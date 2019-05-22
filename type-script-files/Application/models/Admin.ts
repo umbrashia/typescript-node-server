@@ -1,41 +1,38 @@
-import { HttpSystem, AppDatabase } from "../helpers";
-import { joi } from "../interfaces/helpers";
+import { HttpSystem, AppDatabase, mongoose } from "../helpers";
 
-declare module Inamespace {
-    enum status{
-        show="show",
-        hide="hide"
+export namespace IAdmin {
+    export enum status {
+        show = "show",
+        hide = "hide"
     }
-    interface RootObject {
-        _id: any;
-        name: any;
-        userName: any;
-        email: any;
-        siteEmail: any;
-        password: any;
-        sitePhone: any;
-        status: any & status;
+    export enum role {
+        admin = "admin",
+        subadmin = "admin"
+    }
+    export interface RootObject extends mongoose.Document {
+        _id: String;
+        name: String;
+        userName: String;
+        email: String;
+        siteEmail: String;
+        password: String;
+        sitePhone: String;
+        status: status;
+        role: role;
     }
 }
 
-class Admin extends AppDatabase<Inamespace.RootObject> {
-
-    constructor(httpSystem: HttpSystem) {
-        super("admin", httpSystem);
-        this.setSkeleton({
-            _id: joi.string(),
-            name: joi.string().required(),
-            email: joi.string().email().required(),
-            userName: joi.string().required(),
-            siteEmail: joi.string().email().default("noemail@olivs.com"),
-            password: joi.string().required(),
-            sitePhone: joi.string().default("000000000"),
-            status: joi.string().default("show"),
-        });
+const adminSchema = new mongoose.Schema(
+    {
+        name: { type: String, default: null },
+        userName: { type: String, unique: true, required: true },
+        email: { type: String, unique: true, required: true },
+        siteEmail: { type: String, default: null },
+        password: { type: String, default: null },
+        sitePhone: { type: String, default: null },
+        status: { type: String, default: "show" },
+        role: { type: String, default: "admin" }
     }
+);
 
-
-
-}
-
-export { Admin, Inamespace as IAdmin }
+export default mongoose.model<IAdmin.RootObject>("admins", adminSchema);
