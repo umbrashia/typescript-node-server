@@ -1,5 +1,4 @@
-﻿$(function () {
-    //Widgets count
+﻿var chartsCall=function(){
     $('.count-to').countTo();
 
     //Sales count to
@@ -12,6 +11,12 @@
     initRealTimeChart();
     initDonutChart();
     initSparkline();
+};
+
+
+$(function () {
+    //Widgets count
+    chartsCall();
 });
 
 var realtime = 'on';

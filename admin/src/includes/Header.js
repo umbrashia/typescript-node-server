@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 export default class Header extends Component {
 
@@ -22,12 +23,12 @@ export default class Header extends Component {
                         <div className="navbar-header">
                             <a href="" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                             <a href="" className="bars"></a>
-                            <a className="navbar-brand" href="index.html">ADMINBSB - MATERIAL DESIGN</a>
+                            <Link className="navbar-brand" to="/">ADMINBSB - MATERIAL DESIGN</Link>
                         </div>
                         <div className="collapse navbar-collapse" id="navbar-collapse">
                             <ul className="nav navbar-nav navbar-right">
 
-                                <li><a href="#" className="js-search" data-close="true"><i className="material-icons">search</i></a></li>
+                                {/* <li><a href="#" className="js-search" data-close="true"><i className="material-icons">search</i></a></li> */}
 
                                 <li className="dropdown">
                                     <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -236,13 +237,9 @@ export default class Header extends Component {
                                 <div className="btn-group user-helper-dropdown">
                                     <i className="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                                     <ul className="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);"><i className="material-icons">person</i>Profile</a></li>
+                                        <li><Link to="/profile"><i className="material-icons">person</i>Profile</Link></li>
                                         <li role="separator" className="divider"></li>
-                                        <li><a href="javascript:void(0);"><i className="material-icons">group</i>Followers</a></li>
-                                        <li><a href="javascript:void(0);"><i className="material-icons">shopping_cart</i>Sales</a></li>
-                                        <li><a href="javascript:void(0);"><i className="material-icons">favorite</i>Likes</a></li>
-                                        <li role="separator" className="divider"></li>
-                                        <li><a href="javascript:void(0);"><i className="material-icons">input</i>Sign Out</a></li>
+                                        <li><Link to="/signout"><i className="material-icons">input</i>Sign Out</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -252,10 +249,10 @@ export default class Header extends Component {
                             <ul className="list">
                                 <li className="header">MAIN NAVIGATION</li>
                                 <li className="active">
-                                    <a href="index.html">
+                                    <Link to="/">
                                         <i className="material-icons">home</i>
                                         <span>Home</span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a href="pages/typography.html">

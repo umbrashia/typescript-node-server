@@ -1,4 +1,4 @@
-$(function () {
+var demoCall=function(){
     skinChanger();
     activateNotificationAndTasksScroll();
 
@@ -8,6 +8,10 @@ $(function () {
         setSkinListHeightAndScroll(false);
         setSettingListHeightAndScroll(false);
     });
+};
+
+$(function () {
+    demoCall();
 });
 
 //Skin changer

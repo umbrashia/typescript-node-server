@@ -455,7 +455,8 @@ $.AdminBSB.browser = {
 }
 //==========================================================================================================================
 
-$(function () {
+var windowFunt=function(){
+    alert("load");
     $.AdminBSB.browser.activate();
     $.AdminBSB.leftSideBar.activate();
     $.AdminBSB.rightSideBar.activate();
@@ -464,6 +465,11 @@ $(function () {
     $.AdminBSB.input.activate();
     $.AdminBSB.select.activate();
     $.AdminBSB.search.activate();
+};
 
+$(function () {
+   
+    window.admincall=windowFunt;
+    window.admincall();
     setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
 });

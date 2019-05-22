@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import  $ from 'jquery';
+
+
 
 export default class Dashboard extends Component {
+    async componentWillMount() {
+        // window.admincall();
+        // navigator.camera()
+    }
     render() {
         return (
             <div>
@@ -133,7 +140,7 @@ export default class Dashboard extends Component {
                                                         <td>John Doe</td>
                                                         <td>
                                                             <div className="progress">
-                                                                <div className="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style={{width: '62%'}}></div>
+                                                                <div className="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style={{ width: '62%' }}></div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -144,7 +151,7 @@ export default class Dashboard extends Component {
                                                         <td>John Doe</td>
                                                         <td>
                                                             <div className="progress">
-                                                                <div className="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: '40%'}}></div>
+                                                                <div className="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{ width: '40%' }}></div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -155,7 +162,7 @@ export default class Dashboard extends Component {
                                                         <td>John Doe</td>
                                                         <td>
                                                             <div className="progress">
-                                                                <div className="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style={{width: '72%'}}></div>
+                                                                <div className="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style={{ width: '72%' }}></div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -166,7 +173,7 @@ export default class Dashboard extends Component {
                                                         <td>John Doe</td>
                                                         <td>
                                                             <div className="progress">
-                                                                <div className="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style={{width: '95%'}}></div>
+                                                                <div className="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style={{ width: '95%' }}></div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -179,7 +186,7 @@ export default class Dashboard extends Component {
                                                         <td>John Doe</td>
                                                         <td>
                                                             <div className="progress">
-                                                                <div className="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style={{width: '87%'}}></div>
+                                                                <div className="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style={{ width: '87%' }}></div>
                                                             </div>
                                                         </td>
                                                     </tr>
