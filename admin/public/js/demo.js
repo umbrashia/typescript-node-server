@@ -1,4 +1,5 @@
 var demoCall=function(){
+    // alert("oeeeeeeeee");
     skinChanger();
     activateNotificationAndTasksScroll();
 
@@ -11,7 +12,8 @@ var demoCall=function(){
 };
 
 $(function () {
-    demoCall();
+    window.demoCall=demoCall;
+    window.demoCall()
 });
 
 //Skin changer

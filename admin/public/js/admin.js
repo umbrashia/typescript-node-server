@@ -456,7 +456,7 @@ $.AdminBSB.browser = {
 //==========================================================================================================================
 
 var windowFunt=function(){
-    alert("load");
+    // alert("load");
     $.AdminBSB.browser.activate();
     $.AdminBSB.leftSideBar.activate();
     $.AdminBSB.rightSideBar.activate();

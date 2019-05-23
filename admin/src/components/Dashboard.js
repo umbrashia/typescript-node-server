@@ -7,6 +7,9 @@ export default class Dashboard extends Component {
     async componentWillMount() {
         // window.admincall();
         // navigator.camera()
+        //window.demoCall();
+        setTimeout(window.demoCall,0);
+        setTimeout(window.admincall,1000);
     }
     render() {
         return (
