@@ -1,4 +1,4 @@
-﻿var chartsCall=function(){
+﻿var chartsCallL=function(){
     $('.count-to').countTo();
 
     //Sales count to
@@ -16,7 +16,8 @@
 
 $(function () {
     //Widgets count
-    chartsCall();
+    window.chartsCall=chartsCallL;
+    window.chartsCall();
 });
 
 var realtime = 'on';

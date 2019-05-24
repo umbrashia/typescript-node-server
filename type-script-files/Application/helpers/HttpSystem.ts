@@ -3,7 +3,7 @@ import { Response, Request } from "express";
 import { Db } from "mongodb";
 
 export default class HttpSystem implements IHttpSystem {
-    
+
     constructor(httpSystem?: HttpSystem) {
         if (httpSystem) {
             this._sysHttpRequest = httpSystem.sysHttpRequest;
@@ -13,11 +13,16 @@ export default class HttpSystem implements IHttpSystem {
 
     }
 
-    doJsonResponse(data: any={}) {
+    doJsonResponse(data: any = {}) {
         if (this._sysSuccessMessage)
-            this._sysHttpResponse.json({ status: true, message: this._sysSuccessMessage, data: data });
+            return this._sysHttpResponse.status(200).json({ status: true, message: this._sysSuccessMessage, data: data });
         else
-            this._sysHttpResponse.json({ status: false, message: this._sysErrorMessage, data: data });
+            return this._sysHttpResponse.status(200).json({ status: false, message: this._sysErrorMessage, data: data });
+
+    }
+
+    doErrorJsonResponse(data: any = {}) {
+        return this._sysHttpResponse.status(500).json({ status: false, message: this._sysErrorMessage, data: data });
     }
 
     private _sysJsonBodyObj: any;
@@ -33,7 +38,7 @@ export default class HttpSystem implements IHttpSystem {
         return this._sysSuccessMessage;
     }
     public set sysSuccessMessage(value: String) {
-        this._sysErrorMessage=null;
+        this._sysErrorMessage = null;
         this._sysSuccessMessage = value;
     }
 
@@ -42,7 +47,7 @@ export default class HttpSystem implements IHttpSystem {
         return this._sysErrorMessage;
     }
     public set sysErrorMessage(value: String) {
-        this._sysSuccessMessage=null;
+        this._sysSuccessMessage = null;
         this._sysErrorMessage = value;
     }
 

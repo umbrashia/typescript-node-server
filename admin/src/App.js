@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Signin from './components/Signin';
 import { connect } from 'react-redux'
+import progressBar from './assets/images/progressBarApp.svg'
+import { doLogin } from './actions/AdminAction';
 
 class App extends Component {
 
@@ -15,14 +17,20 @@ class App extends Component {
 
   }
 
+  async componentDidMount() {
+    let token = localStorage.getItem("token");
+    if (token)
+      this.props.dispatch(doLogin(token));
+  }
+
   render() {
 
     //let dashboardAccess = true;
-    console.log("jai Hoo",this.props.HttpReducer);
-     
+    console.log("jai Hoo", this.props.HttpReducer);
+
     return (
       <div className="">
-        {this.props.HttpReducer.dashboardAccess== false ?
+        {this.props.HttpReducer.dashboardAccess == false ?
           (
             <Signin></Signin>
           ) :
@@ -33,7 +41,11 @@ class App extends Component {
             </Router>
           )
         }
-
+        {this.props.HttpReducer.fetching &&
+          <div style={{ color: '#FFF', position: 'fixed', bottom: '15px', right: '15px', backgroundColor: '#cddc39', opacity: 0.9, borderRadius: '18px', padding: '5px' }}>
+            <img src={progressBar} alt="logo" />
+          </div>
+        }
       </div>
     );
   }
@@ -41,6 +53,6 @@ class App extends Component {
 
 export default connect((state) => {
   // console.log(state);
-  
+
   return { HttpReducer: state.HttpReducer };
 })(App);

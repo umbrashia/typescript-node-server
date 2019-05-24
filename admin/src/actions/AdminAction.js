@@ -8,3 +8,10 @@ export function doLogin(newToken){
         },
     };
 }
+
+export function setDashboardProgress(status){
+    return {
+        type:"setFetching",
+        payload:status
+    };
+}

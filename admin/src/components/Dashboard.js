@@ -4,12 +4,19 @@ import  $ from 'jquery';
 
 
 export default class Dashboard extends Component {
+
+    async componentDidMount(){
+        document.body.className="theme-red";
+    }
+
     async componentWillMount() {
         // window.admincall();
         // navigator.camera()
         //window.demoCall();
-        setTimeout(window.demoCall,0);
-        setTimeout(window.admincall,1000);
+        setTimeout(window.admincall,100);
+        setTimeout(window.chartsCall,200);
+        setTimeout(window.demoCall,10);
+        
     }
     render() {
         return (
@@ -29,7 +36,7 @@ export default class Dashboard extends Component {
                                     </div>
                                     <div className="content">
                                         <div className="text">NEW TASKS</div>
-                                        <div className="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                                        <div className="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">125</div>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +47,7 @@ export default class Dashboard extends Component {
                                     </div>
                                     <div className="content">
                                         <div className="text">NEW TICKETS</div>
-                                        <div className="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                                        <div className="number count-to" >215</div>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +58,7 @@ export default class Dashboard extends Component {
                                     </div>
                                     <div className="content">
                                         <div className="text">NEW COMMENTS</div>
-                                        <div className="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
+                                        <div className="number count-to" >142</div>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +69,7 @@ export default class Dashboard extends Component {
                                     </div>
                                     <div className="content">
                                         <div className="text">NEW VISITORS</div>
-                                        <div className="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                                        <div className="number count-to" >987</div>
                                     </div>
                                 </div>
                             </div>

@@ -11,17 +11,21 @@ export default class HomeController extends HttpSystem implements IHomeControlle
 
     secureInternalRouting(): void {
         switch (this.sysHttpRequest.params.subModule) {
-            case "adminLogin":
-                this.adminLogin();
-                break;
-            case "adminNew":
-                this.adminNew();
+            case "checkSecure":
+                this.checkSecure();
                 break;
             default:
                 this.sysHttpResponse.send("ohhh wrongg....");
                 break;
         }
     }
+
+    checkSecure() {
+        this.sysSuccessMessage="ohh token found.....";
+        this.doJsonResponse({headersData:this.sysHttpRequest.headers})
+    }
+
+
 
     internalRouting(): void {
         //subModule
@@ -66,12 +70,10 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             }
             else
                 this.sysErrorMessage = "no user found";
-            this.doJsonResponse(adminData);
-
-            // let data=await Admin.find({});
+            return this.doJsonResponse(adminData);
         } catch (error) {
             this.sysErrorMessage = "error";
-            this.doJsonResponse(error);
+            return this.doErrorJsonResponse(error);
         }
     }
 
