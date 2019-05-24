@@ -23,7 +23,7 @@ export default class Header extends Component {
                         <div className="navbar-header">
                             <a href="" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                             <a href="" className="bars"></a>
-                            <Link className="navbar-brand" to="/">ADMINBSB - MATERIAL DESIGN</Link>
+                            <Link className="navbar-brand" to="/">OLIVE - DASHBOARD</Link>
                         </div>
                         <div className="collapse navbar-collapse" id="navbar-collapse">
                             <ul className="nav navbar-nav navbar-right">
