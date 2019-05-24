@@ -1,6 +1,6 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
 import { HttpSystem, bcrypt, crypto, jsonwebtoken } from "../helpers";
-import { IAdmin, Admin } from "../models";
+import { IAdmin, Admin, Filters } from "../models";
 
 export default class HomeController extends HttpSystem implements IHomeController, IBaseController {
 
@@ -21,8 +21,8 @@ export default class HomeController extends HttpSystem implements IHomeControlle
     }
 
     checkSecure() {
-        this.sysSuccessMessage="ohh token found.....";
-        this.doJsonResponse({headersData:this.sysHttpRequest.headers})
+        this.sysSuccessMessage = "ohh token found.....";
+        this.doJsonResponse({ headersData: this.sysHttpRequest.headers })
     }
 
 
@@ -36,9 +36,22 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             case "adminNew":
                 this.adminNew();
                 break;
+            case "getFilters":
+                this.getFilters();
+                break;
             default:
                 this.sysHttpResponse.send("ohhh wrongg....");
                 break;
+        }
+    }
+
+    async getFilters() {
+        try {
+            let data=this.sysHttpRequest.body;
+            this.sysSuccessMessage="get filter data...";
+            this.doJsonResponse({filterData:await Filters.find(data)});
+        } catch (error) {
+            this.doErrorJsonResponse(error);
         }
     }
 
