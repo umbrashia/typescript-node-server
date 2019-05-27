@@ -1,19 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import  $ from 'jquery';
+import $ from 'jquery';
+import HttpRequestResponse from '../helpers/HttpRequestResponse';
 
 export default connect((state) => {
     return { HttpReducer: state.HttpReducer };
 })(class FilterList extends Component {
 
+
+
+    constructor(props) {
+        super(props);
+        // alert("sdsd")
+        this.state = { filterListData: [] };
+    }
+
+    async showList() {
+        let data = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/getFilters", { filterType: this.props.match.params.filterType }, true);
+        this.setState({ filterListData: data.data.filterData });
+    }
+
+
+
+    async componentDidMount() {
+        document.body.className = "theme-red";
+        await this.showList();
+        window.setDatatable('.js-basic-example', { responsive: true });
+    }
+
+    async componentDidUpdate(pevProps) {
+        if (this.props.location.state && pevProps.location.state) {
+            if (this.props.location.state.filterType !== pevProps.location.state.filterType) {
+                await this.showList();
+            }
+        }
+    }
+
     async componentWillMount() {
         // document.body.className="theme-red";
-        $('.js-basic-example').DataTable({
-            responsive: true
-        });
+        //  window.setDatatable('.js-basic-example',{responsive: true});
+        // $('.js-basic-example').DataTable();
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
                 <section className="content">
@@ -56,25 +86,21 @@ export default connect((state) => {
                                                         <th>Salary</th>
                                                     </tr>
                                                 </thead>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Position</th>
-                                                        <th>Office</th>
-                                                        <th>Age</th>
-                                                        <th>Start date</th>
-                                                        <th>Salary</th>
-                                                    </tr>
-                                                </tfoot>
+
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Tiger Nixon</td>
-                                                        <td>System Architect</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>61</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>$320,800</td>
-                                                    </tr>
+
+
+                                                    {this.state.filterListData.map(data => {
+                                                        return <tr>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                        </tr>;
+                                                    })}
+
                                                 </tbody>
                                             </table>
                                         </div>

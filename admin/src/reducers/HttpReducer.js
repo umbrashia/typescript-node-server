@@ -1,4 +1,4 @@
-const apiLinks = { admin_login: "api/admin/adminLogin" }
+const apiLinks = { admin_login: "" }
 
 
 export default function reducer(state = {
@@ -8,6 +8,7 @@ export default function reducer(state = {
     message: null,
     token: null,
     dashboardAccess: false,
+    baseurl:"http://localhost:4000/",
 }, action) {
     switch (action.type) {
         case "doFetching": {

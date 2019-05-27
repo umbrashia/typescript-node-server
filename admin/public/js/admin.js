@@ -76,6 +76,7 @@ $.AdminBSB.leftSideBar = {
         });
 
         //Collapse or Expand Menu
+        $('.menu-toggle').unbind("click");
         $('.menu-toggle').on('click', function (e) {
             var $this = $(this);
             var $content = $this.next();
@@ -241,7 +242,8 @@ $.AdminBSB.navbar = {
     activate: function () {
         var $body = $('body');
         var $overlay = $('.overlay');
-
+        $('.nav [data-close="true"]').unbind("click");
+        $('.bars').unbind("click");
         //Open left sidebar panel
         $('.bars').on('click', function () {
             $body.toggleClass('overlay-open');
@@ -468,6 +470,8 @@ var windowFunt=function(){
 };
 
 $(function () {
+
+
    
     window.admincall=windowFunt;
     window.admincall();

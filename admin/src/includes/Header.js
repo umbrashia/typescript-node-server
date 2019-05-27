@@ -259,17 +259,20 @@ export default class Header extends Component {
                                         <i className="material-icons">widgets</i>
                                         <span>Site Filters</span>
                                     </a>
+
                                     <ul className="ml-menu">
                                         <li>
-                                        <Link to="/filterlist/cmspage">CMS Pages</Link>
+
+                                            <Link to={{ pathname: '/filterlist/cmspage', state: { filterType: "cmspage", title: "CMS Page" } }}>CMS Pages</Link>
                                         </li>
                                         <li>
-                                        <Link to="/filterlist/homeslider">Home Slider</Link>
+                                            <Link to={{ pathname: '/filterlist/homeslider', state: { filterType: "homeslider", title: "CMS Page" } }}>homeslider Pages</Link>
                                         </li>
                                         <li>
-                                        <Link to="/filterlist/blog">Blogs</Link>
+                                            <Link to={{ pathname: '/filterlist/blog', state: { filterType: "blog", title: "CMS Page" } }}>Site Blogs</Link>
                                         </li>
                                     </ul>
+
                                 </li>
                                 <li className="header">LABELS</li>
                                 <li>

@@ -20,6 +20,7 @@ export default class HomeController extends HttpSystem implements IHomeControlle
         }
     }
 
+    
     checkSecure() {
         this.sysSuccessMessage = "ohh token found.....";
         this.doJsonResponse({ headersData: this.sysHttpRequest.headers })

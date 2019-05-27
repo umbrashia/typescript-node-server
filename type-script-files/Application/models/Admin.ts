@@ -20,19 +20,20 @@ export namespace IAdmin {
         status: status;
         role: role;
     }
+    export const adminSchema = new mongoose.Schema(
+        {
+            name: { type: String, default: null },
+            userName: { type: String, unique: true, required: true },
+            email: { type: String, unique: true, required: true },
+            siteEmail: { type: String, default: null },
+            password: { type: String, default: null },
+            sitePhone: { type: String, default: null },
+            status: { type: String, default: "show" },
+            role: { type: String, default: "admin" }
+        }
+    );
 }
 
-const adminSchema = new mongoose.Schema(
-    {
-        name: { type: String, default: null },
-        userName: { type: String, unique: true, required: true },
-        email: { type: String, unique: true, required: true },
-        siteEmail: { type: String, default: null },
-        password: { type: String, default: null },
-        sitePhone: { type: String, default: null },
-        status: { type: String, default: "show" },
-        role: { type: String, default: "admin" }
-    }
-);
 
-export default mongoose.model<IAdmin.RootObject>("admins", adminSchema);
+
+export default mongoose.model<IAdmin.RootObject>("admins", IAdmin.adminSchema);

@@ -16,7 +16,7 @@ export default connect((state) => {
     async handleSubmit(event) {
         event.preventDefault();
 
-        let response = await new HttpRequestResponse(this.props).doJsonBodyRequest("http://localhost:4000/api/admin/adminLogin",
+        let response = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/adminLogin",
             { userName: this.refs.userName.value, password: this.refs.password.value }, true)
         if (response)
             if (response.status){

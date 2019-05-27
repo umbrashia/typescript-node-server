@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Header from './includes/Header';
-import Dashboard from './components/Dashboard';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, HashRouter, Switch, } from "react-router-dom";
 import Signin from './components/Signin';
 import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
 import { doLogin } from './actions/AdminAction';
+import { FiltersList, Dashboard } from './components';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    //this.state = { dashboardAccess: false };
-
   }
 
   async componentDidMount() {
@@ -35,10 +33,15 @@ class App extends Component {
             <Signin></Signin>
           ) :
           (
-            <Router>
+            <HashRouter>
               <Header></Header>
-              <Route exact path="/" component={Dashboard} />
-            </Router>
+              <Switch>
+                <Route exact path="/" component={Dashboard} />
+                <Route path="/filterlist">
+                  <Route path="/:filterType" component={FiltersList} />
+                </Route>
+              </Switch>
+            </HashRouter>
           )
         }
         {this.props.HttpReducer.fetching &&
