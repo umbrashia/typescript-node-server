@@ -1,6 +1,6 @@
+import { Link } from 'react-router-dom'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import $ from 'jquery';
 import HttpRequestResponse from '../helpers/HttpRequestResponse';
 
 export default connect((state) => {
@@ -12,26 +12,26 @@ export default connect((state) => {
     constructor(props) {
         super(props);
         // alert("sdsd")
-        this.state = { filterListData: [] };
+        this.state = { filterListData: [] ,type:""};
     }
 
-    async showList() {
-        let data = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/getFilters", { filterType: this.props.match.params.filterType }, true);
-        this.setState({ filterListData: data.data.filterData });
+    async showList(type) {
+        let data = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/getFilters", { filterType: type }, true);
+        this.setState({ filterListData: data.data.filterData, type:type});
     }
 
 
 
     async componentDidMount() {
         document.body.className = "theme-red";
-        await this.showList();
+        await this.showList( this.props.match.params.filterType);
         window.setDatatable('.js-basic-example', { responsive: true });
     }
 
     async componentDidUpdate(pevProps) {
         if (this.props.location.state && pevProps.location.state) {
             if (this.props.location.state.filterType !== pevProps.location.state.filterType) {
-                await this.showList();
+                await this.showList(this.props.location.state.filterType);
             }
         }
     }
@@ -50,8 +50,8 @@ export default connect((state) => {
                     <div className="container-fluid">
                         <div className="block-header">
                             <h2>
-                                JQUERY DATATABLES
-                    <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small>
+                                Filter {this.state.type}
+                    <small></small>
                             </h2>
                         </div>
 
@@ -66,9 +66,8 @@ export default connect((state) => {
                                                     <i className="material-icons">more_vert</i>
                                                 </a>
                                                 <ul className="dropdown-menu pull-right">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                                    <li><Link to={{ pathname: '/managefilter/'+this.state.type, state: { filterType: this.state.type , title: "CMS Page" } }} >Add New</Link></li>
+                                                    
                                                 </ul>
                                             </li>
                                         </ul>

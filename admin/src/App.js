@@ -7,7 +7,7 @@ import Signin from './components/Signin';
 import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
 import { doLogin } from './actions/AdminAction';
-import { FiltersList, Dashboard } from './components';
+import { FiltersList, Dashboard, ManageFilter } from './components';
 
 class App extends Component {
 
@@ -37,9 +37,8 @@ class App extends Component {
               <Header></Header>
               <Switch>
                 <Route exact path="/" component={Dashboard} />
-                <Route path="/filterlist">
-                  <Route path="/:filterType" component={FiltersList} />
-                </Route>
+                <Route path="/managefilter/:filterType?" component={ManageFilter} />
+                <Route path="/filterlist/:filterType" component={FiltersList} />
               </Switch>
             </HashRouter>
           )
