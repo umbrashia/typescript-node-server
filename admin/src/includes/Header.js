@@ -21,8 +21,8 @@ export default class Header extends Component {
                 <nav className="navbar">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <Link className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></Link>
-                            <Link className="bars"></Link>
+                            <Link to="#" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></Link>
+                            <Link to="#" className="bars"></Link>
                             <Link className="navbar-brand" to="/">OLIVE - DASHBOARD</Link>
                         </div>
                         <div className="collapse navbar-collapse" id="navbar-collapse">
@@ -31,7 +31,7 @@ export default class Header extends Component {
                                 {/* <li><a href="#" className="js-search" data-close="true"><i className="material-icons">search</i></a></li> */}
 
                                 <li className="dropdown">
-                                    <Link  className="dropdown-toggle" data-toggle="dropdown" role="button">
+                                    <Link  to="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
                                         <i className="material-icons">notifications</i>
                                         <span className="label-count">7</span>
                                     </Link>
@@ -40,7 +40,7 @@ export default class Header extends Component {
                                         <li className="body">
                                             <ul className="menu">
                                                 <li>
-                                                    <Link>>
+                                                    <Link to="#">
                                                         <div className="icon-circle bg-light-green">
                                                             <i className="material-icons">person_add</i>
                                                         </div>

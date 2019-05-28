@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import HttpRequestResponse from '../helpers/HttpRequestResponse';
 
 export default connect((state) => {
-    return { HttpReducer: state.HttpReducer };
+    return { HttpReducer: state.HttpReducer, HelperReducer: state.HelperReducer };
 })(class ManageFilter extends Component {
 
     constructor(props) {
@@ -14,6 +14,8 @@ export default connect((state) => {
 
     componentDidMount() {
         document.body.className = "theme-red";
+        setTimeout(window.admincall, 100);
+        setTimeout(window.demoCall, 10);
     }
 
     onSubmitForm(e) {
@@ -47,79 +49,74 @@ export default connect((state) => {
                                     </h2>
                                 </div>
                                 <div className="body">
-                                    <form className="form-horizontal" onSubmit={this.onSubmitForm.bind(this)}>
-                                        {/* input element */}
+                                    <form className="" onSubmit={this.onSubmitForm.bind(this)}>
+
                                         <div className="row clearfix">
-                                            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                <label>Title</label>
-                                            </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                <div className="form-group">
+                                            <div className="col-md-6">
+                                                <div className="form-group form-float">
                                                     <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterTitle" />
+                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterTitle" required />
+                                                        <label className="form-label">Title</label>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div className="col-md-6">
+                                                <div className="form-group form-float">
+                                                    <div className="form-line">
+                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterValue" required />
+                                                        <label className="form-label">Value</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="form-group form-float">
+                                                    <div className="form-line">
+                                                        <select onChange={this.handleOnChange.bind(this)} className="form-control" name="filterStatus" required>
+                                                            <option value="">Please select</option>
+                                                            {this.props.HelperReducer.filterStatus.map(value => {
+                                                                return <option value={value}>{value.toUpperCase()}</option>
+                                                            })}
+                                                        </select>
+                                                        <label className="form-label">Status</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="form-group form-float">
+                                                    <div className="form-line">
+                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterDescription" required />
+                                                        <label className="form-label">Description</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="form-group form-float">
+                                                    <div className="form-line">
+                                                        <select onChange={this.handleOnChange.bind(this)} className="form-control" name="filtersFeature" required>
+                                                            <option value="">Please select</option>
+                                                            {this.props.HelperReducer.filterStatus.map(value => {
+                                                                return <option value={value}>{value.toUpperCase()}</option>
+                                                            })}
+                                                        </select>
+                                                        <label className="form-label">Feature</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
 
-                                        {/* input element */}
                                         <div className="row clearfix">
-                                            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                <label>Value</label>
-                                            </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                <div className="form-group">
-                                                    <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterValue" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* input element */}
-                                        <div className="row clearfix">
-                                            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                <label>Status</label>
-                                            </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                <div className="form-group">
-                                                    <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterStatus" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* input element */}
-                                        <div className="row clearfix">
-                                            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                <label>Description</label>
-                                            </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                <div className="form-group">
-                                                    <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterDescription" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* input element */}
-                                        <div className="row clearfix">
-                                            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                <label>Feature</label>
-                                            </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                <div className="form-group">
-                                                    <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filtersFeature" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row clearfix">
-                                            <div className="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                                <button type="submit" className="btn btn-primary m-t-15 waves-effect">LOGIN</button>
+                                            <div className="col-md-12 text-center">
+                                                <button type="submit" className="btn bg-orange waves-effect">
+                                                    <i className="material-icons">save</i>
+                                                    <span>SAVE</span>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

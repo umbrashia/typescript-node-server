@@ -1,5 +1,5 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
-import { HttpSystem, bcrypt, crypto, jsonwebtoken } from "../helpers";
+import { HttpSystem, bcrypt, crypto, jsonwebtoken, fileUpload } from "../helpers";
 import { IAdmin, Admin, Filters } from "../models";
 
 export default class HomeController extends HttpSystem implements IHomeController, IBaseController {
@@ -14,13 +14,28 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             case "checkSecure":
                 this.checkSecure();
                 break;
+            case "savefilter":
+                this.savefilter();
+                break;
             default:
                 this.sysHttpResponse.send("ohhh wrongg....");
                 break;
         }
     }
 
-    
+    async savefilter() {
+        try {
+            let data = this.sysHttpRequest.body;
+            this.sysSuccessMessage = "Successfully Saved";
+            const info = await new Filters(data).save();
+            console.log(info);
+            this.doJsonResponse({ filterData: {} });
+        } catch (error) {
+            this.doErrorJsonResponse(error);
+        }
+    }
+
+
     checkSecure() {
         this.sysSuccessMessage = "ohh token found.....";
         this.doJsonResponse({ headersData: this.sysHttpRequest.headers })
@@ -40,17 +55,42 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             case "getFilters":
                 this.getFilters();
                 break;
+            case "uploadGlobalFiles":
+                this.uploadGlobalFiles();
+                break;
             default:
                 this.sysHttpResponse.send("ohhh wrongg....");
                 break;
         }
     }
 
+    async uploadGlobalFiles() {
+        try {
+            var allFiles:fileUpload.UploadedFile[]=this.sysHttpRequest.files.files as fileUpload.UploadedFile[];
+            
+            for (let index = 0; index < allFiles.length; index++) {
+                await allFiles[index].mv('./uploads/'+allFiles[index].name);
+            } 
+            //     await element.mv("uploads/"+Math.random()+".jpeg")
+            // });
+
+            
+            this.sysErrorMessage = "notyet saved";
+            // if (uploadRes)
+               // return this.doJsonResponse({});
+            this.sysSuccessMessage="successfully saved..."
+            this.doJsonResponse();
+
+        } catch (error) {
+            this.doErrorJsonResponse(error);
+        }
+    }
+
     async getFilters() {
         try {
-            let data=this.sysHttpRequest.body;
-            this.sysSuccessMessage="get filter data...";
-            this.doJsonResponse({filterData:await Filters.find(data)});
+            let data = this.sysHttpRequest.body;
+            this.sysSuccessMessage = "get filter data...";
+            this.doJsonResponse({ filterData: await Filters.find(data) });
         } catch (error) {
             this.doErrorJsonResponse(error);
         }

@@ -22,7 +22,7 @@ export default class HttpSystem implements IHttpSystem {
     }
 
     doErrorJsonResponse(data: any = {}) {
-        return this._sysHttpResponse.status(500).json({ status: false, message: this._sysErrorMessage, data: data });
+        return this._sysHttpResponse.status(200).json({ status: false, message: this._sysErrorMessage, data: data });
     }
 
     private _sysJsonBodyObj: any;

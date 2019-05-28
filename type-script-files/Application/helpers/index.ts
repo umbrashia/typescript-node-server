@@ -4,5 +4,6 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import * as jsonwebtoken from "jsonwebtoken";
 import * as crypto from 'crypto';
+import * as fileUpload from 'express-fileupload'
 
-export {HttpSystem,AppDatabase,mongoose,bcrypt,jsonwebtoken,crypto};
+export {HttpSystem,AppDatabase,mongoose,bcrypt,jsonwebtoken,crypto,fileUpload};
