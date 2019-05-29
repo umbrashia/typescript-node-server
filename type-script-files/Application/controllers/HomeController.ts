@@ -1,6 +1,7 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
 import { HttpSystem, bcrypt, crypto, jsonwebtoken, fileUpload } from "../helpers";
 import { IAdmin, Admin, Filters } from "../models";
+import * as fs from 'fs';
 
 export default class HomeController extends HttpSystem implements IHomeController, IBaseController {
 
@@ -17,10 +18,23 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             case "savefilter":
                 this.savefilter();
                 break;
+            case "filterFileRemove":
+                this.filterFileRemove();
+                break;
             default:
                 this.sysHttpResponse.send("ohhh wrongg....");
                 break;
         }
+    }
+
+    async filterFileRemove() {
+
+            const path = `${process.env.STATIC_PATH}${this.sysHttpRequest.body.path}`;
+            if (fs.existsSync(path))
+                fs.unlinkSync(path);
+            this.sysSuccessMessage = "Successfully removed...";
+            this.doJsonResponse({});
+
     }
 
     async savefilter() {
@@ -66,21 +80,22 @@ export default class HomeController extends HttpSystem implements IHomeControlle
 
     async uploadGlobalFiles() {
         try {
-            var allFiles:fileUpload.UploadedFile[]=this.sysHttpRequest.files.files as fileUpload.UploadedFile[];
-            
-            for (let index = 0; index < allFiles.length; index++) {
-                await allFiles[index].mv('./uploads/'+allFiles[index].name);
-            } 
-            //     await element.mv("uploads/"+Math.random()+".jpeg")
-            // });
-
-            
+            var allFiles: fileUpload.UploadedFile[] = this.sysHttpRequest.files.files as fileUpload.UploadedFile[];
+            const path = `./uploads/${this.sysHttpRequest.body.filterType}`;
+            let uploadedPaths: any[] = [];
+            if (fs.existsSync(path) === false)
+                fs.mkdirSync(path);
+            if (allFiles.length)
+                for (let index = 0; index < allFiles.length; index++)
+                    await allFiles[index].mv(uploadedPaths[uploadedPaths.push(`${path}/${allFiles[index].name}`) - 1]);
+            else
+                await (allFiles as any).mv(uploadedPaths[uploadedPaths.push(`${path}/${(allFiles as any).name}`) - 1]);
             this.sysErrorMessage = "notyet saved";
-            // if (uploadRes)
-               // return this.doJsonResponse({});
-            this.sysSuccessMessage="successfully saved..."
-            this.doJsonResponse();
-
+            this.sysSuccessMessage = "Uploaded Successfully..."
+            uploadedPaths = uploadedPaths.map((value) => {
+                return {name:value.replace("./uploads/", "")};
+            }) as any[];
+            this.doJsonResponse({ uploadedPaths: uploadedPaths });
         } catch (error) {
             this.doErrorJsonResponse(error);
         }
@@ -119,7 +134,7 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             data.password = crypto.createHash('md5').update(data.password).digest('hex');
             let adminData = await Admin.findOne(data);
             if (adminData) {
-                adminData = { token: jsonwebtoken.sign({ _id: adminData.id }, process.env.SECURE_KEY, { expiresIn: 3600 }) } as any;
+                adminData = { token: jsonwebtoken.sign({ _id: adminData.id }, process.env.SECURE_KEY, { expiresIn: 3600*24 }) } as any;
                 this.sysSuccessMessage = "successfull signin...";
             }
             else

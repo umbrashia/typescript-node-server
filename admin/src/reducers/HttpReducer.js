@@ -1,6 +1,4 @@
-// const apiLinks = { admin_login: "" }
-
-
+const apiLinks = "http://localhost:4000/";
 export default function reducer(state = {
     fetching: false,
     fetched: false,
@@ -8,7 +6,8 @@ export default function reducer(state = {
     message: null,
     token: null,
     dashboardAccess: false,
-    baseurl:"http://localhost:4000/",
+    baseurl:apiLinks,
+    staticurl:`${apiLinks}static/`
 }, action) {
     switch (action.type) {
         case "doFetching": {

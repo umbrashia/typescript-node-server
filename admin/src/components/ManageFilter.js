@@ -1,6 +1,9 @@
 // import { Link } from 'react-router-dom'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import HttpRequestResponse from '../helpers/HttpRequestResponse';
+import { Editor } from '@tinymce/tinymce-react';
+
 // import HttpRequestResponse from '../helpers/HttpRequestResponse';
 
 export default connect((state) => {
@@ -9,7 +12,7 @@ export default connect((state) => {
 
     constructor(props) {
         super(props);
-        this.state = { formData: {} };
+        this.state = { formData: {}, files: [] };
     }
 
     componentDidMount() {
@@ -20,6 +23,7 @@ export default connect((state) => {
 
     onSubmitForm(e) {
         e.preventDefault();
+        this.setState({ formData: { ...this.state.formData, filterFiles:this.state.files } })
         console.log(this.state);
     }
 
@@ -28,6 +32,33 @@ export default connect((state) => {
         console.log(e.target);
 
         this.setState({ formData: { ...this.state.formData, [name]: value.trim() } })
+    }
+
+    async handleUploadFile(e) {
+        if (e.target.files.length > 0) {
+            console.log(e.target.files);
+            const data = new FormData();
+            for (let index = 0; index < e.target.files.length; index++) {
+                data.append(`files`, e.target.files[index]);
+            }
+            data.append("filterType", this.props.match.params.filterType)
+            var response = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/uploadGlobalFiles", data, true);
+            this.setState({ ...this.state, files: response.data.uploadedPaths });
+        }
+    }
+
+    async handleRemoveFilterFile(index, e) {
+        if (window.confirm("Are you sure?")) {
+            var response = await new HttpRequestResponse(this.props).doJsonBodyRequest("secure/api/admin/filterFileRemove", { path: e.target.value }, true);
+            let temp = this.state.files;
+            temp.splice(index, 1);
+            this.setState({ ...this.state, files: temp });
+        }
+    }
+
+    handleEditorChange = (e) => {
+        console.log('Content was updated:', e.target.getContent());
+        this.setState({ formData: { ...this.state.formData, filterDescription: e.target.getContent() } })
     }
 
     render() {
@@ -53,25 +84,28 @@ export default connect((state) => {
 
                                         <div className="row clearfix">
                                             <div className="col-md-6">
-                                                <div className="form-group form-float">
+                                                <label className="form-label">Title</label>
+                                                <div className="form-group ">
                                                     <div className="form-line">
                                                         <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterTitle" required />
-                                                        <label className="form-label">Title</label>
+
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="col-md-6">
-                                                <div className="form-group form-float">
+                                                <label className="form-label">Value</label>
+                                                <div className="form-group ">
                                                     <div className="form-line">
                                                         <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterValue" required />
-                                                        <label className="form-label">Value</label>
+
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="col-md-6">
-                                                <div className="form-group form-float">
+                                                <label className="form-label">Status</label>
+                                                <div className="form-group ">
                                                     <div className="form-line">
                                                         <select onChange={this.handleOnChange.bind(this)} className="form-control" name="filterStatus" required>
                                                             <option value="">Please select</option>
@@ -79,31 +113,84 @@ export default connect((state) => {
                                                                 return <option value={value}>{value.toUpperCase()}</option>
                                                             })}
                                                         </select>
-                                                        <label className="form-label">Status</label>
+
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="col-md-6">
-                                                <div className="form-group form-float">
-                                                    <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterDescription" required />
-                                                        <label className="form-label">Description</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-md-6">
-                                                <div className="form-group form-float">
+                                                <label className="form-label">Feature</label>
+                                                <div className="form-group ">
                                                     <div className="form-line">
                                                         <select onChange={this.handleOnChange.bind(this)} className="form-control" name="filtersFeature" required>
                                                             <option value="">Please select</option>
-                                                            {this.props.HelperReducer.filterStatus.map(value => {
+                                                            {this.props.HelperReducer.filterStatus.map((value, index) => {
                                                                 return <option value={value}>{value.toUpperCase()}</option>
                                                             })}
                                                         </select>
-                                                        <label className="form-label">Feature</label>
+
                                                     </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div className="col-md-12">
+                                                <label className="form-label">Description</label>
+                                                <div className="form-group ">
+                                                    <div className="form-line">
+                                                        {/* <textarea id="tinymce" name="filterDescription" onChange={this.handleOnChange.bind(this)}></textarea> */}
+                                                        <Editor
+                                                            initialValue="<p>This is the initial content of the editor</p>"
+                                                            apiKey='6at11g1je6yh4ze77tu80trl1ykxnetcqis69ywd9e53svmf'
+                                                            init={{
+                                                                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak' +
+                                                                    ' searchreplace wordcount visualblocks visualchars code fullscreen ' +
+                                                                    ' insertdatetime media nonbreaking save table contextmenu directionality' +
+                                                                    ' emoticons template paste textcolor colorpicker textpattern imagetools',
+                                                                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+                                                            }}
+                                                            onChange={this.handleEditorChange.bind(this)}
+                                                        />
+                                                        {/* <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterDescription" required /> */}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div className="col-md-12">
+                                                <b>Upload Files (Images)</b>
+                                                <div className="form-group">
+                                                    <div className="form-line" id="bs_datepicker_container">
+                                                        <input type="file" multiple className="form-label" onChange={this.handleUploadFile.bind(this)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-12">
+                                                <div class="row">
+                                                    {this.state.files.map((value, index) => {
+                                                        return (<div className="col-sm-6 col-md-3">
+                                                            <div className="thumbnail">
+                                                                <img src={this.props.HttpReducer.staticurl + value.name} />
+                                                                <div className="caption text-center">
+
+                                                                    <div class="btn-group"  role="group">
+                                                                        
+                                                                        <button type="button" onClick={(e) => {
+                                                                            navigator.clipboard.writeText(e.target.value)
+                                                                            document.execCommand("copy");
+                                                                        }} value={this.props.HttpReducer.staticurl + value.name} class="btn btn-primary waves-effect">Copy</button>
+                                                                        <button type="button" label={index} value={value.name} onClick={this.handleRemoveFilterFile.bind(this, index)} class="btn btn-danger waves-effect">Remove</button>
+                                                                    </div>
+
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>);
+
+                                                    })}
                                                 </div>
                                             </div>
 

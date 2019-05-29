@@ -472,6 +472,7 @@ var windowFunt=function(){
 $(function () {
 
 
+    // window.tinymce=tinymce;
    
     window.admincall=windowFunt;
     window.admincall();

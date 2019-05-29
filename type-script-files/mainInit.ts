@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as bodyparser from "body-parser";
 import * as jsonwebtoken from "jsonwebtoken";
-import { HttpSystem, mongoose,fileUpload } from "./Application/helpers";
+import { HttpSystem, mongoose, fileUpload } from "./Application/helpers";
 import { HomeController } from "./Application/controllers";
 import * as bcrypt from 'bcrypt';
 import * as cors from 'cors';
@@ -12,12 +12,14 @@ import * as cors from 'cors';
 mongoose.connect('mongodb://localhost:27017/stickflash', { useNewUrlParser: true, useCreateIndex: true, });
 
 process.env.SECURE_KEY = "YEFBCISDXNYS";
+process.env.STATIC_PATH = "./uploads/";
 
 let app = express();
 let secureApp = express.Router();
+app.use('/static',express.static('uploads'))
 app.use(fileUpload())
 app.use(cors())
-app.use(bodyparser.urlencoded({ extended: true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json({ type: 'application/json' }))
 
 app.use("/secure", secureApp);

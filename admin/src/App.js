@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Header from './includes/Header';
-import { BrowserRouter as Route, HashRouter, Switch, } from "react-router-dom";
+import { BrowserRouter as Router, Route, HashRouter, Switch, } from "react-router-dom";
 import Signin from './components/Signin';
 import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
@@ -33,6 +33,7 @@ class App extends Component {
             <Signin></Signin>
           ) :
           (
+            <Router>
             <HashRouter>
               <Header></Header>
               <Switch>
@@ -41,6 +42,7 @@ class App extends Component {
                 <Route path="/filterlist/:filterType" component={FiltersList} />
               </Switch>
             </HashRouter>
+            </Router>
           )
         }
         {this.props.HttpReducer.fetching &&
@@ -54,7 +56,5 @@ class App extends Component {
 }
 
 export default connect((state) => {
-  // console.log(state);
-
   return { HttpReducer: state.HttpReducer };
 })(App);
