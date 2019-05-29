@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Header from './includes/Header';
-import { BrowserRouter as Router, Route, HashRouter, Switch, } from "react-router-dom";
+import { BrowserRouter as Route, HashRouter, Switch, } from "react-router-dom";
 import Signin from './components/Signin';
 import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
@@ -11,9 +11,9 @@ import { FiltersList, Dashboard, ManageFilter } from './components';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   async componentDidMount() {
     let token = localStorage.getItem("token");
@@ -28,7 +28,7 @@ class App extends Component {
 
     return (
       <div className="">
-        {this.props.HttpReducer.dashboardAccess == false ?
+        {this.props.HttpReducer.dashboardAccess === false ?
           (
             <Signin></Signin>
           ) :

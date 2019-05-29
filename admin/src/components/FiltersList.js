@@ -62,9 +62,9 @@ export default connect((state) => {
                                         <h2>BASIC EXAMPLE</h2>
                                         <ul className="header-dropdown m-r--5">
                                             <li className="dropdown">
-                                                <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <Link className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                                     <i className="material-icons">more_vert</i>
-                                                </a>
+                                                </Link>
                                                 <ul className="dropdown-menu pull-right">
                                                     <li><Link to={{ pathname: '/managefilter/'+this.state.type, state: { filterType: this.state.type , title: "CMS Page" } }} >Add New</Link></li>
                                                     

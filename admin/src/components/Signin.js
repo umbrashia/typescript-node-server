@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import Axios from 'axios';
 import { doLogin } from '../actions/AdminAction';
 import HttpRequestResponse from '../helpers/HttpRequestResponse';
 

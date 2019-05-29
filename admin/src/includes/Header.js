@@ -131,7 +131,7 @@ export default class Header extends Component {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="javascript:void(0);" className="menu-toggle">
+                                    <Link  className="menu-toggle">
                                         <i className="material-icons">widgets</i>
                                         <span>Site Filters</span>
                                     </Link>
@@ -174,7 +174,7 @@ export default class Header extends Component {
 
                         <div className="legal">
                             <div className="copyright">
-                                &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                                &copy; 2016 - 2017 <Link >AdminBSB - Material Design</Link>.
                 </div>
                             <div className="version">
                                 <b>Version: </b> 1.0.5

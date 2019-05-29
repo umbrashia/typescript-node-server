@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  $ from 'jquery';
+// import  $ from 'jquery';
 
 
 
@@ -90,18 +90,7 @@ export default class Dashboard extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul className="header-dropdown m-r--5">
-                                            <li className="dropdown">
-                                                <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i className="material-icons">more_vert</i>
-                                                </a>
-                                                <ul className="dropdown-menu pull-right">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                       
                                     </div>
                                     <div className="body">
                                         <div id="real_time_chart" className="dashboard-flot-chart"></div>
@@ -117,18 +106,7 @@ export default class Dashboard extends Component {
                                 <div className="card">
                                     <div className="header">
                                         <h2>TASK INFOS</h2>
-                                        <ul className="header-dropdown m-r--5">
-                                            <li className="dropdown">
-                                                <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i className="material-icons">more_vert</i>
-                                                </a>
-                                                <ul className="dropdown-menu pull-right">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        
                                     </div>
                                     <div className="body">
                                         <div className="table-responsive">
@@ -211,18 +189,7 @@ export default class Dashboard extends Component {
                                 <div className="card">
                                     <div className="header">
                                         <h2>BROWSER USAGE</h2>
-                                        <ul className="header-dropdown m-r--5">
-                                            <li className="dropdown">
-                                                <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i className="material-icons">more_vert</i>
-                                                </a>
-                                                <ul className="dropdown-menu pull-right">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                       
                                     </div>
                                     <div className="body">
                                         <div id="donut_chart" className="dashboard-donut-chart"></div>
