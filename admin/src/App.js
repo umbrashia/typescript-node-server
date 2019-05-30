@@ -24,7 +24,7 @@ class App extends Component {
   render() {
 
     //let dashboardAccess = true;
-    console.log("jai Hoo", this.props.HttpReducer);
+    //console.log("jai Hoo", this.props.HttpReducer);
 
     return (
       <div className="">

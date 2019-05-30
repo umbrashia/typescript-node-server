@@ -42,7 +42,6 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             let data = this.sysHttpRequest.body;
             this.sysSuccessMessage = "Successfully Saved";
             const info = await new Filters(data).save();
-            console.log(info);
             this.doJsonResponse({ filterData: {} });
         } catch (error) {
             this.doErrorJsonResponse(error);
@@ -81,7 +80,7 @@ export default class HomeController extends HttpSystem implements IHomeControlle
     async uploadGlobalFiles() {
         try {
             var allFiles: fileUpload.UploadedFile[] = this.sysHttpRequest.files.files as fileUpload.UploadedFile[];
-            const path = `./uploads/${this.sysHttpRequest.body.filterType}`;
+            const path = `${process.env.STATIC_PATH}${this.sysHttpRequest.body.filterType}`;
             let uploadedPaths: any[] = [];
             if (fs.existsSync(path) === false)
                 fs.mkdirSync(path);
@@ -93,7 +92,7 @@ export default class HomeController extends HttpSystem implements IHomeControlle
             this.sysErrorMessage = "notyet saved";
             this.sysSuccessMessage = "Uploaded Successfully..."
             uploadedPaths = uploadedPaths.map((value) => {
-                return {name:value.replace("./uploads/", "")};
+                return {name:value.replace(process.env.STATIC_PATH  , "")};
             }) as any[];
             this.doJsonResponse({ uploadedPaths: uploadedPaths });
         } catch (error) {

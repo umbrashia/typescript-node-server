@@ -12,7 +12,7 @@ export default connect((state) => {
 
     constructor(props) {
         super(props);
-        this.state = { formData: {}, files: [] };
+        this.state = { formData: { filterType: this.props.match.params.filterType }, files: [] };
     }
 
     componentDidMount() {
@@ -21,10 +21,14 @@ export default connect((state) => {
         setTimeout(window.demoCall, 10);
     }
 
-    onSubmitForm(e) {
+    async onSubmitForm(e) {
+
         e.preventDefault();
-        this.setState({ formData: { ...this.state.formData, filterFiles:this.state.files } })
-        console.log(this.state);
+        let temp={...this.state.formData,filterFiles: this.state.files};
+        await this.setState({...this.state,formData:{...this.state.formData,filterFiles:this.state.files}})
+        console.log(this.state.formData);
+        var response = await new HttpRequestResponse(this.props).doJsonBodyRequest("secure/api/admin/savefilter",this.state.formData, true);
+        
     }
 
     handleOnChange = (e) => {
@@ -62,6 +66,7 @@ export default connect((state) => {
     }
 
     render() {
+        this.props.title="dsdsdsd";
         return (
             <section className="content">
                 <div className="container-fluid">
@@ -87,7 +92,7 @@ export default connect((state) => {
                                                 <label className="form-label">Title</label>
                                                 <div className="form-group ">
                                                     <div className="form-line">
-                                                        <input type="text" onChange={this.handleOnChange.bind(this)} className="form-control" name="filterTitle" required />
+                                                        <input type="text" value={this.props.title} onChange={this.handleOnChange.bind(this)} className="form-control" name="filterTitle" required />
 
                                                     </div>
                                                 </div>
@@ -175,8 +180,8 @@ export default connect((state) => {
                                                                 <img src={this.props.HttpReducer.staticurl + value.name} />
                                                                 <div className="caption text-center">
 
-                                                                    <div class="btn-group"  role="group">
-                                                                        
+                                                                    <div class="btn-group" role="group">
+
                                                                         <button type="button" onClick={(e) => {
                                                                             navigator.clipboard.writeText(e.target.value)
                                                                             document.execCommand("copy");

@@ -18,7 +18,9 @@ $(function () {
     //Widgets count
     window.chartsCall=chartsCallL;
     window.setDatatable=function(ele,dataObj){
-        $(ele).DataTable(dataObj);
+        // $(ele).DataTable().fnClearTable();
+        // $(ele).DataTable().fnDestroy();
+        return $(ele).DataTable(dataObj);
     };
     window.chartsCall();
 });

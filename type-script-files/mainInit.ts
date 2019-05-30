@@ -18,7 +18,7 @@ let app = express();
 let secureApp = express.Router();
 app.use('/static',express.static('uploads'))
 app.use(fileUpload())
-app.use(cors())
+app.use(cors({origin:"*",methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',}))
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json({ type: 'application/json' }))
 
