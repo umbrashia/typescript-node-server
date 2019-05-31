@@ -5,6 +5,7 @@
   "dependencies": {
     "@tinymce/tinymce-react": "^3.1.1",
     "axios": "^0.18.0",
+    "immutable": "^4.0.0-rc.12",
     "jquery": "^3.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -12,6 +13,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
+    "redux-form": "^8.2.3",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
   },
