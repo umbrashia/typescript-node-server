@@ -5,7 +5,7 @@ export default function reducer(state = {
     error: false,
     message: null,
     token: null,
-    dashboardAccess: false,
+    dashboardAccess: true,
     baseurl:apiLinks,
     staticurl:`${apiLinks}static/`
 }, action) {

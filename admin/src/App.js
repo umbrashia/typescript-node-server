@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Header from './includes/Header';
@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
 import { doLogin } from './actions/AdminAction';
 import { FiltersList, Dashboard, ManageFilter } from './components';
+import { IncludeHS } from './includes';
 
 class App extends Component {
 
@@ -33,16 +34,21 @@ class App extends Component {
             <Signin></Signin>
           ) :
           (
-            <Router>
-            <HashRouter>
-              <Header></Header>
-              <Switch>
-                <Route exact path="/" component={Dashboard} />
-                <Route path="/managefilter/:filterType?" component={ManageFilter} />
-                <Route path="/filterlist/:filterType" component={FiltersList} />
-              </Switch>
-            </HashRouter>
-            </Router>
+            <IncludeHS>
+             
+                <h1>sss</h1>
+              
+            </IncludeHS>
+            // <Router>
+            // <HashRouter>
+            //   <Header></Header>
+            //   <Switch>
+            //     <Route exact path="/" component={Dashboard} />
+            //     <Route path="/managefilter/:filterType?" component={ManageFilter} />
+            //     <Route path="/filterlist/:filterType" component={FiltersList} />
+            //   </Switch>
+            // </HashRouter>
+            // </Router>
           )
         }
         {this.props.HttpReducer.fetching &&
