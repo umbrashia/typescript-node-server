@@ -7,7 +7,7 @@ import Signin from './components/Signin';
 import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
 import { doLogin } from './actions/AdminAction';
-import { FiltersList, Dashboard, ManageFilter } from './components';
+import { FiltersList, Dashboard, ManageFilter, Login } from './components';
 import { IncludeHS } from './includes';
 
 class App extends Component {
@@ -17,9 +17,9 @@ class App extends Component {
   // }
 
   async componentDidMount() {
-    let token = localStorage.getItem("token");
-    if (token)
-      this.props.dispatch(doLogin(token));
+    // let token = localStorage.getItem("token");
+    // if (token)
+    //   this.props.dispatch(doLogin(token));
   }
 
   render() {
@@ -31,7 +31,7 @@ class App extends Component {
       <div className="">
         {this.props.HttpReducer.dashboardAccess === false ?
           (
-            <Signin></Signin>
+            <Login/>
           ) :
           (
             <IncludeHS>

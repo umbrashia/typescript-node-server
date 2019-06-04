@@ -3,6 +3,7 @@ import { Header } from '../includes';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Paper from '@material-ui/core/Paper';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -12,9 +13,9 @@ import Typography from '@material-ui/core/Typography';
 
 export default class Dashboard extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={value:"one"};
+        this.state = { value: 0 };
     }
 
     async componentDidMount() {
@@ -29,40 +30,50 @@ export default class Dashboard extends Component {
 
     }
     render() {
-        
+
         return (
             <div>
 
                 <Header onDrawerToggle={null}>
                     <AppBar
                         component="div"
-                        
+                        className={{ zIndex: 0,}}
                         color="primary"
                         position="static"
                         elevation={0}>
-                        <Tabs value={this.state.value} onChange={(e)=>{
-                            console.log(e);
-                            
-                        }}>
-                            <Tab value="one" label="New Arrivals in the Longest Text of Nonfiction" wrapped />
-                            <Tab value="two" label="Item Two" />
-                            <Tab value="three" label="Item Three" />
-                        </Tabs>
-                        </AppBar>
-                    
-                    
 
-                  
+
+                        <Tabs
+                            value={this.state.value}
+                            onChange={(e, val) => {
+                                this.setState({ value: val });
+                            }}
+                            variant="scrollable"
+                            scrollButtons="on"
+                            indicatorColor="primary"
+                            textColor="inherit">
+                            <Tab textColor="inherit" label="Item One"  />
+                            <Tab textColor="inherit" label="Item Two"  />
+                            <Tab textColor="inherit" label="Item Three"  />
+                            <Tab textColor="inherit" label="Item Four"  />
+                        </Tabs>
+
+
+
+                       
+                    </AppBar>
+
+
+
                 </Header>
 
                 <main className={{
-                    flex: 1,
-                    padding: '48px 36px 0',
-                    background: '#eaeff1',
+
                 }}>
-                    {this.state.value === 'one' && "Item One"}
-                    {this.state.value === 'two' && "Item tw"}
-                    {this.state.value === 'three' && "Item Three"}
+                    {this.state.value === 0 && "Item One"}
+                    {this.state.value === 1 && "Item tw"}
+                    {this.state.value === 2 && "Item Three"}
+                    {this.state.value === 3 && "Item four"}
                 </main>
 
             </div>

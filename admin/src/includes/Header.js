@@ -58,7 +58,7 @@ export default withStyles(styles)(class Header extends Component {
         
         const { classes, onDrawerToggle } = this.props;
         return (
-            <div>
+            
                 <React.Fragment>
                     <AppBar color="primary" position="sticky" elevation={0}>
                         <Toolbar>
@@ -133,7 +133,7 @@ export default withStyles(styles)(class Header extends Component {
                 
               
               
-            </div>
+           
         );
     }
 });
