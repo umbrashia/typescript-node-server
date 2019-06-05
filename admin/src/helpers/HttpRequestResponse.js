@@ -21,11 +21,11 @@ export default class HttpRequestResponse {
         try {
             this.props.dispatch(setDashboardProgress(true));
             response = await Axios.post(this.props.HttpReducer.baseurl+apiLink, data, { headers: { token: this.props.HttpReducer.token, ...this._localHeaders } });
-            if (quickNotification)
-                if (response.data.status)
-                    window.showNotification("success","bg-light-green", response.data.message, "top", "right", "animated rotateInDownRight", "animated rotateOutDownRight");
-                else
-                    window.showNotification("warning","alert-warning", response.data.message, "top", "right", "animated rotateInDownRight", "animated rotateOutDownRight");
+            // if (quickNotification)
+            //     if (response.data.status)
+            //         window.showNotification("success","bg-light-green", response.data.message, "top", "right", "animated rotateInDownRight", "animated rotateOutDownRight");
+            //     else
+            //         window.showNotification("warning","alert-warning", response.data.message, "top", "right", "animated rotateInDownRight", "animated rotateOutDownRight");
             //return response.data;
         } catch (error) {
             window.showNotification("error" ,"alert-danger", "Sorry. Looks like something went wrong on over end.", "top", "right", "animated rotateInDownRight", "animated rotateOutDownRight");

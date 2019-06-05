@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { Component, Fragment } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Header from './includes/Header';
@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import progressBar from './assets/images/progressBarApp.svg'
 import { doLogin } from './actions/AdminAction';
 import { FiltersList, Dashboard, ManageFilter, Login } from './components';
-import { IncludeHS } from './includes';
+import { IncludeHS, Notification } from './includes';
+
 
 class App extends Component {
 
@@ -28,16 +29,17 @@ class App extends Component {
     //console.log("jai Hoo", this.props.HttpReducer);
 
     return (
-      <div className="">
+      <Fragment>
+        <Notification></Notification>
         {this.props.HttpReducer.dashboardAccess === false ?
           (
-            <Login/>
+            <Login />
           ) :
           (
             <IncludeHS>
-             
-                <h1>sss</h1>
-              
+
+              <h1>sss</h1>
+
             </IncludeHS>
             // <Router>
             // <HashRouter>
@@ -51,12 +53,8 @@ class App extends Component {
             // </Router>
           )
         }
-        {this.props.HttpReducer.fetching &&
-          <div style={{ color: '#FFF', position: 'fixed', bottom: '15px', right: '15px', backgroundColor: '#cddc39', opacity: 0.9, borderRadius: '18px', padding: '5px' }}>
-            <img src={progressBar} alt="logo" />
-          </div>
-        }
-      </div>
+
+      </Fragment>
     );
   }
 }

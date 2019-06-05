@@ -11,10 +11,11 @@ export const renderTextField = ({
 }) => (
         <TextField
             label={label}
-            errorText={touched && error}
+            
             margin="normal"
             variant="outlined"
             {...input}
             {...custom}
         />
     );
+    //errorText={touched && error}

@@ -91,9 +91,9 @@ export default class HomeController extends HttpSystem implements IHomeControlle
                 await (allFiles as any).mv(uploadedPaths[uploadedPaths.push(`${path}/${(allFiles as any).name}`) - 1]);
             this.sysErrorMessage = "notyet saved";
             this.sysSuccessMessage = "Uploaded Successfully..."
-            uploadedPaths = uploadedPaths.map((value) => {
+            /*uploadedPaths = uploadedPaths.map((value) => {
                 return {name:value.replace(process.env.STATIC_PATH  , "")};
-            }) as any[];
+            }) as any[];*/
             this.doJsonResponse({ uploadedPaths: uploadedPaths });
         } catch (error) {
             this.doErrorJsonResponse(error);
