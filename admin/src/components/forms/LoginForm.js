@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { renderTextField, Button } from '../../helpers/FormsInputs';
 import HttpRequestResponse from '../../helpers/HttpRequestResponse';
-import { doLogin } from '../../actions/AdminAction';
+import { doLogin, setDashboardProgress } from '../../actions/AdminAction';
 import { enqueueSnackbar, closeSnackbar } from '../../actions/NotificationAction';
 import { Notification } from '../../includes';
 
@@ -32,26 +32,16 @@ export default reduxForm({
 
         async handleLoginSubmit(value) {
             console.log(value);
-            // await this.props.dispatch(doLogin("asasas"));
-            this.props.enqueueSnackbar({
-                message: 'Failed fetching data.',
-                options: {
-                    key: new Date().getTime() + Math.random(),
-                    variant: 'error',
-                    action: key => (
-                        <Button onClick={() => {}}>dissmiss me</Button>
-                    ),
-                },
-            });
+            this.props.dispatch(setDashboardProgress(false));
 
-
-            // let response = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/adminLogin",value, true)
-            // if (response)
-            //     if (response.status) {
-            //         localStorage.setItem("token", response.data.token);
-            //         //alert("asasa");
-            //         this.props.dispatch(doLogin(response.data.token));
-            //     }
+            // return 1;
+            let response = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/adminLogin",value, true)
+            if (response)
+                if (response.status) {
+                    localStorage.setItem("token", response.data.token);
+                    //alert("asasa");
+                    this.props.dispatch(doLogin(response.data.token));
+                }
         }
 
         render() {

@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { removeSnackbar,closeSnackbar,enqueueSnackbar } from '../actions/NotificationAction';
+import { removeSnackbar } from '../actions/NotificationAction';
+import progressBar from '../assets/images/progressBarApp.svg'
 
 class Notification extends Component {
     displayed = [];
@@ -56,7 +57,15 @@ class Notification extends Component {
     }
 
     render() {
-        return null;
+        return (
+            <Fragment>
+                {this.props.HttpReducer.fetching &&
+                    <div style={{ position: 'fixed', bottom: '15px', right: '15px', }}>
+                        <img src={progressBar} alt="logo" />
+                    </div>
+                }
+            </Fragment>
+        );
     }
 }
 
@@ -67,8 +76,8 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => bindActionCreators({ removeSnackbar }, dispatch);
 
 export default withSnackbar(connect(
-    (state)=>{
-return {notifications: state.NotificationReducer.notifications,};
+    (state) => {
+        return { notifications: state.NotificationReducer.notifications, HttpReducer: state.HttpReducer };
     },
     mapDispatchToProps,
 )(Notification));

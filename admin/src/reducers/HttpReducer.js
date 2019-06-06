@@ -14,6 +14,8 @@ export default function reducer(state = {
             return { ...state, fetching: true, message: action.payload.message };
         }
         case "setFetching": {
+            alert("sds");
+
             return { ...state, fetching: action.payload };
         }
         case "onLogin": {

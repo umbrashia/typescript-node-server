@@ -5,7 +5,6 @@ import Header from './includes/Header';
 import { BrowserRouter as Router, Route, HashRouter, Switch, } from "react-router-dom";
 import Signin from './components/Signin';
 import { connect } from 'react-redux'
-import progressBar from './assets/images/progressBarApp.svg'
 import { doLogin } from './actions/AdminAction';
 import { FiltersList, Dashboard, ManageFilter, Login } from './components';
 import { IncludeHS, Notification } from './includes';
@@ -18,9 +17,9 @@ class App extends Component {
   // }
 
   async componentDidMount() {
-    // let token = localStorage.getItem("token");
-    // if (token)
-    //   this.props.dispatch(doLogin(token));
+    let token = localStorage.getItem("token");
+    if (token)
+      this.props.dispatch(doLogin(token));
   }
 
   render() {
@@ -36,24 +35,13 @@ class App extends Component {
             <Login />
           ) :
           (
-            <IncludeHS>
-
-              <h1>sss</h1>
-
-            </IncludeHS>
-            // <Router>
-            // <HashRouter>
-            //   <Header></Header>
-            //   <Switch>
+            <IncludeHS/>
             //     <Route exact path="/" component={Dashboard} />
             //     <Route path="/managefilter/:filterType?" component={ManageFilter} />
             //     <Route path="/filterlist/:filterType" component={FiltersList} />
-            //   </Switch>
-            // </HashRouter>
-            // </Router>
           )
         }
-
+        
       </Fragment>
     );
   }

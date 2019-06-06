@@ -1,49 +1,60 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Header } from '../includes';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
+import { setDashboardProgress } from '../actions/AdminAction';
 
 // import  $ from 'jquery';
 
 
 
-export default class Dashboard extends Component {
+export default withStyles({
+    tabstyle: {
+        // marginLeft:"-100px",
+        // padding : '10px',
+        zIndex: 0,
+      },
+})(connect((state) => {
+    return {
+        HttpReducer: state.HttpReducer
+    };
+})(class Dashboard extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { value: 0 };
+        this.state = { value: "cmspage" };
     }
 
     async componentDidMount() {
-        document.body.className = "theme-red";
+
     }
 
     async componentWillMount() {
-        // window.admincall();
-        // navigator.camera()
-        //window.demoCall();
-
 
     }
-    render() {
 
+    render() {
+        const {classes}=this.props;
         return (
-            <div>
+            <Fragment>
 
                 <Header onDrawerToggle={null}>
                     <AppBar
                         component="div"
-                        className={{ zIndex: 0,}}
+                        className={classes.tabstyle}
                         color="primary"
                         position="static"
                         elevation={0}>
 
 
                         <Tabs
+                            
                             value={this.state.value}
                             onChange={(e, val) => {
                                 this.setState({ value: val });
@@ -52,15 +63,14 @@ export default class Dashboard extends Component {
                             scrollButtons="on"
                             indicatorColor="primary"
                             textColor="inherit">
-                            <Tab textColor="inherit" label="Item One"  />
-                            <Tab textColor="inherit" label="Item Two"  />
-                            <Tab textColor="inherit" label="Item Three"  />
-                            <Tab textColor="inherit" label="Item Four"  />
+                            <Tab textColor="inherit" value="cmspage" label="CMS Pages" />
+                            <Tab textColor="inherit" value="homeslider" label="Home Slider" />
+                            <Tab textColor="inherit" value="blog" label="Blogs" />
                         </Tabs>
 
 
 
-                       
+
                     </AppBar>
 
 
@@ -70,13 +80,12 @@ export default class Dashboard extends Component {
                 <main className={{
 
                 }}>
-                    {this.state.value === 0 && "Item One"}
-                    {this.state.value === 1 && "Item tw"}
-                    {this.state.value === 2 && "Item Three"}
-                    {this.state.value === 3 && "Item four"}
+                    {this.state.value}
+                    
+                    
                 </main>
 
-            </div>
+            </Fragment>
         );
     }
-}
+}))

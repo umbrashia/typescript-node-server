@@ -1,5 +1,6 @@
 /Application
 /node_modules
 /uploads/cmspage
+/uploads/homeslider
 mainInit.js
 *.js.map
