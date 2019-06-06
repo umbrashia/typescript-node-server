@@ -7,6 +7,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case ENQUEUE_SNACKBAR:
+            // alert("sdsdsd");
             return {
                 ...state,
                 notifications: [

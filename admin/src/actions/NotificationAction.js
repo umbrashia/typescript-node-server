@@ -3,15 +3,18 @@ export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
 export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
 
 export const enqueueSnackbar = notification => {
-    console.log("saasasasas");
-    
-    const key = notification.options && notification.options.key;
+    // console.log("saasasasas");
+
+    let key = null;
+    if (notification)
+        key = notification.options && notification.options.key;
+
 
     return {
         type: ENQUEUE_SNACKBAR,
         notification: {
             ...notification,
-            key: key || new Date().getTime() + Math.random(),
+            key: new Date().getTime() + Math.random(),
         },
     };
 };

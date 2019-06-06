@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { removeSnackbar,closeSnackbar,enqueueSnackbar } from '../actions/NotificationAction';
 
-class Notifier extends Component {
+class Notification extends Component {
     displayed = [];
 
     storeDisplayed = (id) => {
@@ -64,9 +64,11 @@ const mapStateToProps = store => ({
     notifications: store.NotificationReducer,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ removeSnackbar,closeSnackbar,enqueueSnackbar }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ removeSnackbar }, dispatch);
 
 export default withSnackbar(connect(
-    mapStateToProps,
+    (state)=>{
+return {notifications: state.NotificationReducer.notifications,};
+    },
     mapDispatchToProps,
-)(Notifier));
+)(Notification));

@@ -37,8 +37,10 @@ export default reduxForm({
                 message: 'Failed fetching data.',
                 options: {
                     key: new Date().getTime() + Math.random(),
-                    variant: 'warning',
-
+                    variant: 'error',
+                    action: key => (
+                        <Button onClick={() => {}}>dissmiss me</Button>
+                    ),
                 },
             });
 
@@ -56,14 +58,14 @@ export default reduxForm({
             const { classes, handleSubmit } = this.props;
             return (
                 <div>
-                   
-                        
-                        <form onSubmit={handleSubmit(this.handleLoginSubmit.bind(this))}>
-                            <Field component={renderTextField} fullWidth type="text" name="userName" label="User Name" />
-                            <Field component={renderTextField} fullWidth type="password" name="password" label="Password" />
-                            <Button type="submit" variant="contained" fullWidth className={classes.submit} color="primary">Primary</Button>
-                        </form>
-                    
+
+
+                    <form onSubmit={handleSubmit(this.handleLoginSubmit.bind(this))}>
+                        <Field component={renderTextField} fullWidth type="text" name="userName" label="User Name" />
+                        <Field component={renderTextField} fullWidth type="password" name="password" label="Password" />
+                        <Button type="submit" variant="contained" fullWidth className={classes.submit} color="primary">Primary</Button>
+                    </form>
+
                 </div>
             );
         }
