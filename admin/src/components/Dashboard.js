@@ -4,22 +4,41 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import { IntegratedSorting, SortingState } from '@devexpress/dx-react-grid';
+import { Grid as TGrid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
 
 import Typography from '@material-ui/core/Typography';
 import { setDashboardProgress } from '../actions/AdminAction';
+import { Toolbar } from '@material-ui/core';
 
 // import  $ from 'jquery';
 
 
 
-export default withStyles({
-    tabstyle: {
-        // marginLeft:"-100px",
-        // padding : '10px',
-        zIndex: 0,
+export default withStyles((theme)=>{
+    return {paper: {
+        maxWidth: 936,
+        margin: 'auto',
+        overflow: 'hidden',
       },
+      searchBar: {
+        borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+      },
+      searchInput: {
+        fontSize: theme.typography.fontSize,
+      },
+      block: {
+        display: 'block',
+      },
+      addUser: {
+        marginRight: theme.spacing(1),
+      },
+      contentWrapper: {
+        margin: '40px 16px',
+      },}
 })(connect((state) => {
     return {
         HttpReducer: state.HttpReducer
@@ -40,7 +59,8 @@ export default withStyles({
     }
 
     render() {
-        const {classes}=this.props;
+        const { classes } = this.props;
+        console.log(this.props);
         return (
             <Fragment>
 
@@ -51,10 +71,7 @@ export default withStyles({
                         color="primary"
                         position="static"
                         elevation={0}>
-
-
                         <Tabs
-                            
                             value={this.state.value}
                             onChange={(e, val) => {
                                 this.setState({ value: val });
@@ -67,24 +84,33 @@ export default withStyles({
                             <Tab textColor="inherit" value="homeslider" label="Home Slider" />
                             <Tab textColor="inherit" value="blog" label="Blogs" />
                         </Tabs>
-
-
-
-
                     </AppBar>
-
-
-
                 </Header>
-
-                <main className={{
-
-                }}>
-                    {this.state.value}
-                    
-                    
+                <main >
+                    <Paper className={classes.paper}>
+                        <AppBar position="static" color="default" >
+                            <Toolbar>
+                                
+                            </Toolbar>
+                        </AppBar>
+                        {this.state.value}
+                        <TGrid
+                            rows={[
+                                { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+                                { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+                            ]}
+                            columns={[
+                                { name: 'id', title: 'ID' },
+                                { name: 'product', title: 'Product' },
+                                { name: 'owner', title: 'Owner' },
+                            ]}>
+                            <SortingState defaultSorting={[{ columnName: 'id', direction: 'asc' }]} />
+                            <IntegratedSorting />
+                            <Table />
+                            <TableHeaderRow showSortingControls />
+                        </TGrid>
+                    </Paper>
                 </main>
-
             </Fragment>
         );
     }
