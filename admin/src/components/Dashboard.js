@@ -12,33 +12,43 @@ import { Grid as TGrid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-
 
 import Typography from '@material-ui/core/Typography';
 import { setDashboardProgress } from '../actions/AdminAction';
-import { Toolbar } from '@material-ui/core';
+import { Toolbar, Button, Tooltip } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import RefreshIcon from '@material-ui/icons/Refresh';
+// import Button from '@material-ui/core/Button';
+// import Extension from '@material-ui/icons/extension';
+import { Extension } from '@material-ui/icons';
+import HttpRequestResponse from '../helpers/HttpRequestResponse';
+
 
 // import  $ from 'jquery';
 
 
 
-export default withStyles((theme)=>{
-    return {paper: {
-        maxWidth: 936,
-        margin: 'auto',
-        overflow: 'hidden',
-      },
-      searchBar: {
-        borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-      },
-      searchInput: {
-        fontSize: theme.typography.fontSize,
-      },
-      block: {
-        display: 'block',
-      },
-      addUser: {
-        marginRight: theme.spacing(1),
-      },
-      contentWrapper: {
-        margin: '40px 16px',
-      },}
+export default withStyles((theme) => {
+    return {
+        paper: {
+            maxWidth: 936,
+            margin: 'auto',
+            overflow: 'hidden',
+        },
+        searchBar: {
+            borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+        },
+        searchInput: {
+            fontSize: theme.typography.fontSize,
+        },
+        block: {
+            display: 'block',
+        },
+        addUser: {
+            marginRight: theme.spacing(1),
+        },
+        contentWrapper: {
+            margin: '40px 16px',
+        },
+    }
 })(connect((state) => {
     return {
         HttpReducer: state.HttpReducer
@@ -47,11 +57,31 @@ export default withStyles((theme)=>{
 
     constructor(props) {
         super(props)
-        this.state = { value: "cmspage" };
+        this.state = { value: "cmspage", filterListData: [] };
     }
 
-    async componentDidMount() {
+    handleResetClick = ({ index }) => {
+        return alert(index);
+        const updatedRows = [...this.state.rows];
+        updatedRows[index].car = "";
+        this.setState({ rows: updatedRows });
+    };
 
+    async componentDidMount() {
+        let data = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/getFilters", { filterType: this.state.value }, true);
+        var addResetBtn = ({ index }) => {
+            return (
+                <Button
+                    className="btn"
+                    onClick={this.handleResetClick.bind(this, { index: index })} >Reset
+                </Button>
+            );
+        };
+        data.data.filterData=data.data.filterData.map((ar,index,) => {
+            ar.action = addResetBtn.call(this, { index: index });
+            return ar;
+        });
+        await this.setState({ filterListData: data.data.filterData });
     }
 
     async componentWillMount() {
@@ -87,24 +117,40 @@ export default withStyles((theme)=>{
                     </AppBar>
                 </Header>
                 <main >
+                    <br />
                     <Paper className={classes.paper}>
                         <AppBar position="static" color="default" >
                             <Toolbar>
-                                
+                                <Grid container spacing={2} alignItems="center">
+                                    <Grid item>
+                                        <Extension className={classes.block} color="inherit" />
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Button variant="contained" color="primary" className={classes.addUser}>
+                                            Add Data
+                                        </Button>
+                                        <Tooltip title="Reload">
+                                            <IconButton>
+                                                <RefreshIcon className={classes.block} color="inherit" />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
                             </Toolbar>
                         </AppBar>
-                        {this.state.value}
+                        {/* {this.state.value} */}
                         <TGrid
-                            rows={[
-                                { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-                                { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-                            ]}
+                            rows={this.state.filterListData}
                             columns={[
-                                { name: 'id', title: 'ID' },
-                                { name: 'product', title: 'Product' },
-                                { name: 'owner', title: 'Owner' },
+                                { name: 'filterTitle', title: 'Title' },
+                                { name: 'filterDescription', title: 'Description' },
+                                { name: 'filtersFeature', title: 'Feature' },
+                                { name: 'filterStatus', title: 'Status' },
+                                { name: "action", title: "action" },
+
                             ]}>
-                            <SortingState defaultSorting={[{ columnName: 'id', direction: 'asc' }]} />
+                            <SortingState defaultSorting={[{ columnName: 'filterTitle', direction: 'asc' }]} />
                             <IntegratedSorting />
                             <Table />
                             <TableHeaderRow showSortingControls />
