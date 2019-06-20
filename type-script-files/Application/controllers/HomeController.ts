@@ -1,5 +1,5 @@
 import { IHomeController, IBaseController } from "../interfaces/controllers";
-import { HttpSystem, bcrypt, crypto, jsonwebtoken, fileUpload } from "../helpers";
+import { HttpSystem, crypto, jsonwebtoken, fileUpload } from "../helpers";
 import { IAdmin, Admin, Filters } from "../models";
 import * as fs from 'fs';
 
@@ -116,7 +116,7 @@ export default class HomeController extends HttpSystem implements IHomeControlle
                 name: "olive",
                 userName: "admin",
                 email: "shantanu@oliveglobal.com",
-                password: await bcrypt.hash("123456", 10),
+                password: crypto.createHash('md5').update("123456").digest('hex'),
             };
             if (await new Admin(insert).save())
                 this.sysHttpResponse.json({ status: "success", message: "successfully saved" })

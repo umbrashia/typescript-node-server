@@ -3,7 +3,6 @@ import * as bodyparser from "body-parser";
 import * as jsonwebtoken from "jsonwebtoken";
 import { HttpSystem, mongoose, fileUpload } from "./Application/helpers";
 import { HomeController } from "./Application/controllers";
-import * as bcrypt from 'bcrypt';
 import * as cors from 'cors';
 
 
@@ -69,8 +68,8 @@ app.all("/api/:module/:subModule?/:subSubModule?", (request: express.Request, re
 app.listen(4000, async () => {
     console.log("Server is started at 4000 Port ...... " + new Date());
     try {
-        let data = await bcrypt.hash("123456", 10);
-        console.log(data);
+      
+        
     } catch (error) {
 
         console.log(error);
