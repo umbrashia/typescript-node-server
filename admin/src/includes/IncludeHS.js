@@ -12,6 +12,7 @@ import Navigator from './SlideNav';
 // import Content from './Content';
 
 import { Dashboard } from '../components';
+import AddEditFilter from '../components/AddEditFilter';
 
 
 let theme = createMuiTheme({
@@ -193,6 +194,8 @@ export default withStyles(styles)(
                                 <div className={classes.appContent}>                  
                                     <Switch>
                                         <Route exact path="/" component={Dashboard} />
+                                        <Route path="/addfilter/:filterType" component={AddEditFilter} />
+                                        <Route path="/editfilter/:id" component={AddEditFilter} />
                                         {/* <Route path="/managefilter/:filterType?" component={ManageFilter} />
                                         <Route path="/filterlist/:filterType" component={FiltersList} /> */}
                                     </Switch>     

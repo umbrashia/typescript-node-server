@@ -20,6 +20,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 // import Extension from '@material-ui/icons/extension';
 import { Extension } from '@material-ui/icons';
 import HttpRequestResponse from '../helpers/HttpRequestResponse';
+import { FilterForm } from './forms';
 
 
 // import  $ from 'jquery';
@@ -45,25 +46,7 @@ export default withStyles((theme) => {
         addUser: {
             marginRight: theme.spacing(1),
         },
-        contentWrapper: {
-            margin: '40px 16px',
-        },
-        secondaryBar: {
-            zIndex: 0,
-        },
-        menuButton: {
-            marginLeft: -theme.spacing(1),
-        },
-        iconButtonAvatar: {
-            padding: 4,
-        },
-        link: {
-            textDecoration: 'none',
 
-        },
-        button: {
-            borderColor: lightColor,
-        },
     }
 })(connect((state) => {
     return {
@@ -109,30 +92,7 @@ export default withStyles((theme) => {
         console.log(this.props);
         return (
             <Fragment>
-                <Header onDrawerToggle={null} headerName="Site Data Managment">
-                    <AppBar
-                        component="div"
-                        className={classes.tabstyle}
-                        color="primary"
-                        position="static"
-                        elevation={0}>
-                        <Tabs
-                            component="div"
-                            className={classes.secondaryBar}
-                            value={this.state.value}
-                            onChange={(e, val) => {
-                                this.setState({ value: val });
-                            }}
-                            variant="scrollable"
-                            scrollButtons="on"
-                            indicatorColor="primary"
-                            textColor="inherit">
-                            <Tab textColor="inherit" value="cmspage" label="CMS Pages" />
-                            <Tab textColor="inherit" value="homeslider" label="Home Slider" />
-                            <Tab textColor="inherit" value="blog" label="Blogs" />
-                            <Tab textColor="inherit" value="Add" label="Add/Edit Data" />
-                        </Tabs>
-                    </AppBar>
+                <Header onDrawerToggle={null} headerName="Add/Edit Filters">
                 </Header>
                 <main >
                     <br />
@@ -145,7 +105,7 @@ export default withStyles((theme) => {
                                         <Extension className={classes.block} color="inherit" />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained"  color="primary" className={classes.addUser}>
+                                        <Button variant="contained" color="primary" className={classes.addUser}>
                                             Add Data
                                         </Button>
                                         <Tooltip title="Reload">
@@ -158,21 +118,7 @@ export default withStyles((theme) => {
                             </Toolbar>
                         </AppBar>
                         {/* {this.state.value} */}
-                        <TGrid
-                            rows={this.state.filterListData}
-                            columns={[
-                                { name: 'filterTitle', title: 'Title' },
-                                { name: 'filterDescription', title: 'Description' },
-                                { name: 'filtersFeature', title: 'Feature' },
-                                { name: 'filterStatus', title: 'Status' },
-                                { name: "action", title: "action" },
-
-                            ]}>
-                            <SortingState defaultSorting={[{ columnName: 'filterTitle', direction: 'asc' }]} />
-                            <IntegratedSorting />
-                            <Table />
-                            <TableHeaderRow showSortingControls />
-                        </TGrid>
+                        <FilterForm onSubmit={(e)=>{}}></FilterForm>
                     </Paper>
                 </main>
             </Fragment>
