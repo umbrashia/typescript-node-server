@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { IntegratedSorting, SortingState } from '@devexpress/dx-react-grid';
@@ -145,7 +146,7 @@ export default withStyles((theme) => {
                                         <Extension className={classes.block} color="inherit" />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained"  color="primary" className={classes.addUser}>
+                                        <Button variant="contained" component={Link} to={"/addfilter/cmspage"} color="primary" className={classes.addUser}>
                                             Add Data
                                         </Button>
                                         <Tooltip title="Reload">
