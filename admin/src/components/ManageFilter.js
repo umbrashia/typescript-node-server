@@ -32,10 +32,10 @@ export default reduxForm({
 
             e.preventDefault();
 
-            let temp = { ...this.state.formData, filterFiles: this.state.files };
+            // let temp = { ...this.state.formData, filterFiles: this.state.files };
             await this.setState({ ...this.state, formData: { ...this.state.formData, filterFiles: this.state.files } })
             console.log(this.state.formData);
-            var response = await new HttpRequestResponse(this.props).doJsonBodyRequest("secure/api/admin/savefilter", this.state.formData, true);
+            await new HttpRequestResponse(this.props).doJsonBodyRequest("secure/api/admin/savefilter", this.state.formData, true);
 
         }
 
@@ -61,7 +61,7 @@ export default reduxForm({
 
         async handleRemoveFilterFile(index, e) {
             if (window.confirm("Are you sure?")) {
-                var response = await new HttpRequestResponse(this.props).doJsonBodyRequest("secure/api/admin/filterFileRemove", { path: e.target.value }, true);
+                await new HttpRequestResponse(this.props).doJsonBodyRequest("secure/api/admin/filterFileRemove", { path: e.target.value }, true);
                 let temp = this.state.files;
                 temp.splice(index, 1);
                 this.setState({ ...this.state, files: temp });

@@ -1,21 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Header } from '../includes';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { IntegratedSorting, SortingState } from '@devexpress/dx-react-grid';
-import { Grid as TGrid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
-
-import Typography from '@material-ui/core/Typography';
-import { setDashboardProgress } from '../actions/AdminAction';
 import { Toolbar, Button, Tooltip } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import RefreshIcon from '@material-ui/icons/Refresh';
 // import Button from '@material-ui/core/Button';
 // import Extension from '@material-ui/icons/extension';
 import { Extension } from '@material-ui/icons';
@@ -46,6 +36,9 @@ export default withStyles((theme) => {
         addUser: {
             marginRight: theme.spacing(1),
         },
+        marginInputs: {
+            margin: theme.spacing(1),
+        },
 
     }
 })(connect((state) => {
@@ -59,32 +52,25 @@ export default withStyles((theme) => {
         this.state = { value: "cmspage", filterListData: [] };
     }
 
-    handleResetClick = ({ index }) => {
-        return alert(index);
-        const updatedRows = [...this.state.rows];
-        updatedRows[index].car = "";
-        this.setState({ rows: updatedRows });
-    };
-
     async componentDidMount() {
-        let data = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/getFilters", { filterType: this.state.value }, true);
-        var addResetBtn = ({ index }) => {
-            return (
-                <Button
-                    className="btn"
-                    onClick={this.handleResetClick.bind(this, { index: index })} >Reset
-                </Button>
-            );
-        };
-        data.data.filterData = data.data.filterData.map((ar, index, ) => {
-            ar.action = addResetBtn.call(this, { index: index });
-            return ar;
-        });
-        await this.setState({ filterListData: data.data.filterData });
+
     }
 
     async componentWillMount() {
 
+    }
+
+    async handleUploadChange(files) {
+        
+        if (files.length > 0) {
+            const data = new FormData();
+            for (let index = 0; index < files.length; index++) {
+                data.append(`files`, files[index]);
+            }
+            data.append("filterType", this.props.match.params.filterType)
+            var response = await new HttpRequestResponse(this.props).doJsonBodyRequest("api/admin/uploadGlobalFiles", data, true);
+            this.setState({ ...this.state, files: response.data.uploadedPaths });
+        }
     }
 
     render() {
@@ -105,20 +91,13 @@ export default withStyles((theme) => {
                                         <Extension className={classes.block} color="inherit" />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" color="primary" className={classes.addUser}>
-                                            Add Data
-                                        </Button>
-                                        <Tooltip title="Reload">
-                                            <IconButton>
-                                                <RefreshIcon className={classes.block} color="inherit" />
-                                            </IconButton>
-                                        </Tooltip>
+                                        Add {this.state.value}      
                                     </Grid>
                                 </Grid>
                             </Toolbar>
                         </AppBar>
                         {/* {this.state.value} */}
-                        <FilterForm onSubmit={(e)=>{}}></FilterForm>
+                        <FilterForm classes={classes} onSubmit={(e)=>{alert("adding");}} handleUploadChange={this.handleUploadChange.bind(this)}></FilterForm>
                     </Paper>
                 </main>
             </Fragment>

@@ -5,9 +5,6 @@ import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import { BrowserRouter as Router, Route, HashRouter, Switch, } from "react-router-dom";
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import AppBar from '@material-ui/core/AppBar';
 import Navigator from './SlideNav';
 // import Content from './Content';
 
@@ -128,30 +125,33 @@ theme = {
 
 const drawerWidth = 256;
 
-const styles = {
-    root: {
-        display: 'flex',
-        minHeight: '100vh',
-    },
-    drawer: {
-        [theme.breakpoints.up('sm')]: {
-            width: drawerWidth,
-            flexShrink: 0,
-        },
-    },
-    appContent: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    mainContent: {
-        flex: 1,
-        padding: '48px 36px 0',
-        background: '#eaeff1',
-    },
-};
 
-export default withStyles(styles)(
+
+export default withStyles(
+    {
+        root: {
+            display: 'flex',
+            minHeight: '100vh',
+        },
+        drawer: {
+            [theme.breakpoints.up('sm')]: {
+                width: drawerWidth,
+                flexShrink: 0,
+            },
+        },
+        appContent: {
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            marginBottom:'25px'
+        },
+        mainContent: {
+            flex: 1,
+            padding: '48px 36px 0',
+            background: '#eaeff1',
+        },
+    }
+)(
 
     class IncludeHS extends Component {
 
