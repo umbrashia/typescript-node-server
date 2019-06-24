@@ -37,6 +37,7 @@ class Armyman extends AppDatabase<RootObject> {
             status: joi.string().default("show"),
             favproducts: joi.array().items(FacSchema).default([]) as any
         });
+        //this.doInsert({_id:123,name:"asas"});
     }
 
 
