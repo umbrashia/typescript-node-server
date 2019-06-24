@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import Header from './includes/Header';
-import { BrowserRouter as Router, Route, HashRouter, Switch, } from "react-router-dom";
-import Signin from './components/Signin';
 import { connect } from 'react-redux'
 import { doLogin } from './actions/AdminAction';
-import { FiltersList, Dashboard, ManageFilter, Login } from './components';
+import {  Login } from './components';
 import { IncludeHS, Notification } from './includes';
 
 

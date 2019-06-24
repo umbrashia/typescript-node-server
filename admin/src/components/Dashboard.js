@@ -10,15 +10,10 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { IntegratedSorting, SortingState } from '@devexpress/dx-react-grid';
 import { Grid as TGrid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
-
-import Typography from '@material-ui/core/Typography';
-import { setDashboardProgress } from '../actions/AdminAction';
+import {Link} from 'react-router-dom';
 import { Toolbar, Button, Tooltip } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
-// import Button from '@material-ui/core/Button';
-// import Extension from '@material-ui/icons/extension';
 import { Extension } from '@material-ui/icons';
 import HttpRequestResponse from '../helpers/HttpRequestResponse';
 
@@ -65,6 +60,9 @@ export default withStyles((theme) => {
         button: {
             borderColor: lightColor,
         },
+        gridPadding:{
+            padding:theme.spacing(2)
+        }
     }
 })(connect((state) => {
     return {
@@ -141,13 +139,13 @@ export default withStyles((theme) => {
                     <Paper className={classes.paper}>
                         <AppBar position="static" color="default" >
                             <Toolbar>
-                                <Grid container spacing={2} alignItems="center">
+                                <Grid container justify="center" spacing={2} alignItems="center">
                                     <Grid item>
                                         <Extension className={classes.block} color="inherit" />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" component={Link} to={"/addfilter/cmspage"} color="primary" className={classes.addUser}>
-                                            Add Data
+                                        <Button variant="contained"  color="primary" component={Link} to={"addfilter/"+this.state.value} className={classes.addUser}>
+                                            Add New One
                                         </Button>
                                         <Tooltip title="Reload">
                                             <IconButton>
